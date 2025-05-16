@@ -1,0 +1,121 @@
+{% load static %}
+{#{% load notifications_tags %}#}
+
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Your digital partner">
+    <meta name="author" content="zaala">
+    <meta name="developer" content="zaalasociety.com">
+    <meta name="org-name" content="zaalasociety"/>
+{#    <link rel="icon" href="#}
+{#            {% if app.favicon %}{{ app.favicon.url }}{% else %}{% static 'core/images/logos/favico.ico' %}{% endif %}">#}
+
+    <title>
+
+        {% block title %}
+            {{ app.name }} |
+
+            {# BASE HALF TITLE #}
+            {% block subtitle %}
+
+            {% endblock %}
+            {# --------------- #}
+        {% endblock %}
+
+    </title>
+
+    <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+          rel="stylesheet">
+
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    {# BASE LINKS THAT ARE REQUIRED FOR CERTAIN PAGE #}
+    {% block css %}
+
+    {% endblock %}
+    {# --------------------------------------------- #}
+
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    {% include "website/include/header.html" %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% include "website/include/footer.html" %}
+
+
+    {# -------------------------------------------------------- #}
+
+</div>
+
+
+<div class="progress-wrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+    </svg>
+</div>
+
+<script src="{% static 'assets/js/jquery.js' %}"></script>
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/appear.js' %}"></script>
+<script src="{% static 'assets/js/parallax.min.js' %}"></script>
+<script src="{% static 'assets/js/tilt.jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.paroller.min.js' %}"></script>
+<script src="{% static 'assets/js/wow.js' %}"></script>
+<script src="{% static 'assets/js/jarallax.js' %}"></script>
+<script src="{% static 'assets/js/swiper.min.js' %}"></script>
+<script src="{% static 'assets/js/backtotop.js' %}"></script>
+<script src="{% static 'assets/js/odometer.js' %}"></script>
+<script src="{% static 'assets/js/parallax-scroll.js' %}"></script>
+
+<script src="{% static 'assets/js/gsap.min.js' %}"></script>
+<script src="{% static 'assets/js/SplitText.min.js' %}"></script>
+<script src="{% static 'assets/js/ScrollTrigger.min.js' %}"></script>
+<script src="{% static 'assets/js/ScrollToPlugin.min.js' %}"></script>
+<script src="{% static 'assets/js/ScrollSmoother.min.js' %}"></script>
+
+<script src="{% static 'assets/js/magnific-popup.min.js' %}"></script>
+<script src="{% static 'assets/js/nav-tool.js' %}"></script>
+<script src="{% static 'assets/js/jquery-ui.js' %}"></script>
+<script src="{% static 'assets/js/element-in-view.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+
+</body>
+</html>
+{##}
+{#<div class="row">#}
+{#    {% include 'messages.html' %}#}
+{#</div>#}
+
+
+{# BASE EXTERNAL SCRIPTS OR LINKS THAT ARE REQUIRED IN PAGE #}
+{% block js_code %}
+
+{% endblock %}
+{# -------------------------------------------------------- #}
