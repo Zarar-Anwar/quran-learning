@@ -34,6 +34,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 INSTALLED_APPS = [
     # DJANGO APPS
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -65,6 +66,7 @@ INSTALLED_APPS = [
     # YOUR APPS
     'src.core.apps.CoreConfig',
     'src.services.users.apps.UsersConfig',
+    'src.services.courses.apps.UsersConfig',
 
     # WEB APPS
     'src.web.website',

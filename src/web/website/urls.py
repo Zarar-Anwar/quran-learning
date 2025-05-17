@@ -1,6 +1,7 @@
 from django.urls import path
 
-from src.web.website.views import HomeView, AboutView, ContactView, CoursesView, ServicesView, BlogsView, ScholarsView
+from src.web.website.views import HomeView, AboutView, ContactView, CoursesView, ServicesView, ScholarsView, \
+    VideosView, CoursesDetailsView
 
 app_name = "website"
 urlpatterns = [
@@ -8,8 +9,9 @@ urlpatterns = [
     path('about/',AboutView.as_view() , name="about"),
     path('contact/',ContactView.as_view() , name="contact"),
     path('courses/',CoursesView.as_view() , name="courses"),
+    path('courses-details/',CoursesDetailsView.as_view() , name="courses-details"),
     path('services/',ServicesView.as_view() , name="services"),
-    path('blogs/',BlogsView.as_view() , name="blogs"),
+    path('videos/',VideosView.as_view() , name="videos"),
     path('scholars', ScholarsView.as_view() , name="scholars"),
 
 ]

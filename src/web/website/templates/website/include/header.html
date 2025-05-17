@@ -54,7 +54,7 @@
 										<li><a href="{% url 'website:services' %}">Services</a></li>
 										<li><a href="{% url 'website:about' %}">About</a></li>
 										<li><a href="{% url 'website:contact' %}">Contact</a></li>
-										<li><a href="{% url 'website:blogs' %}">Blogs</a></li>
+										<li><a href="{% url 'website:videos' %}">Videos</a></li>
 {#										<li><a href="{% url 'website:home' %}">Home</a></li>#}
 
 									</ul>
@@ -69,13 +69,14 @@
 							<div class="search-box-btn search-box-outer"><span class="icon fa fa-search"></span></div>
 
 							<!-- User Box -->
-							<a class="user-box theme-btn" href="register.html">
+							<a class="user-box theme-btn" href="{% url 'account_login' %}">
+
 								<span class="fa-regular fa-user fa-fw"></span>
 							</a>
 
 							<!-- Button Box -->
 							<div class="header_button-box">
-								<a href="{% url 'website:contact' %}" class="theme-btn btn-style-four">
+								<a href="{% url 'account_signup' %}" class="theme-btn btn-style-four">
 									<span class="btn-wrap">
 										<span class="text-one">Quick Join Now</span>
 										<span class="text-two">Quick Join Now</span>
@@ -117,7 +118,7 @@
 										<li><a href="{% url 'website:services' %}">Services</a></li>
 										<li><a href="{% url 'website:about' %}">About</a></li>
 										<li><a href="{% url 'website:contact' %}">Contact</a></li>
-										<li><a href="{% url 'website:blogs' %}">Blogs</a></li>
+										<li><a href="{% url 'website:videos' %}">Videos</a></li>
 									</ul>
 								</div>
 							</div>

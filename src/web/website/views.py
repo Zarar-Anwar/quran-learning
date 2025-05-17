@@ -16,11 +16,14 @@ class AboutView(TemplateView):
 class CoursesView(TemplateView):
     template_name = "website/courses.html"
 
+class CoursesDetailsView(TemplateView):
+    template_name = "website/courses-details.html"
+
 class ServicesView(TemplateView):
     template_name = "website/services.html"
 
-class BlogsView(TemplateView):
-    template_name = "website/blogs.html"
+class VideosView(TemplateView):
+    template_name = "website/videos.html"
 
 class ScholarsView(TemplateView):
     template_name = "website/scholars.html"
