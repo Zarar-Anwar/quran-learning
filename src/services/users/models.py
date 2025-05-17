@@ -1,11 +1,9 @@
 from django.conf import settings
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django_resized import ResizedImageField
-from phonenumber_field.modelfields import PhoneNumberField
 
 
 class User(AbstractUser):
@@ -14,7 +12,11 @@ class User(AbstractUser):
         upload_to='users/images/profiles/', null=True, blank=True, size=[250, 250], quality=75, force_format='PNG',
         help_text='size of logo must be 250*250 and format must be png image file', crop=['middle', 'center']
     )
-    phone_number = PhoneNumberField(null=True, blank=True)
+    phone_number = models.CharField(blank=True, max_length=20, null=True, unique=True)
+    country = models.CharField(blank=True, max_length=20, null=True, unique=True)
+    city = models.CharField(blank=True, max_length=20, null=True, unique=True)
+    message = models.TextField(blank=True, null=True, unique=True,
+                               )
 
     REQUIRED_FIELDS = ["username"]
     USERNAME_FIELD = "email"

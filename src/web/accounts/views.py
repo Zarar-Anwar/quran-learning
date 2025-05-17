@@ -19,7 +19,7 @@ class LogoutView(View):
 class CrossAuthView(View):
 
     def get(self, request):
-        return redirect('admins:dashboard')
+        return redirect('website:home')
 
 
 @method_decorator(login_required, name='dispatch')

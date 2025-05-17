@@ -2,128 +2,160 @@
 
 <header class="main-header header-style-two">
 
-		<!-- Header Top -->
-		<div class="header-top">
-			<div class="auto-container">
-				<div class="inner-container">
-					<div class="d-flex justify-content-between align-items-center flex-wrap">
-						<div class="left-box d-flex align-items-center flex-wrap">
-							<!-- Info List -->
-							<ul class="header-top_list">
-								<li><span class="icon fa-solid fa-envelope fa-fw"></span>Support24@gmail.com</li>
-								<li><span class="icon fa-solid fa-location-dot fa-fw"></span>Suite 80 Golden Street Germeney</li>
-							</ul>
-							<div class="bismillah"><img src="{% static 'assets/images/icons/bismillah.png' %}" alt=""> </div>
-						</div>
-						<ul class="header-top_list-two">
-							<li><span class="icon fa-regular fa-sun fa-fw"></span>Sunrise At: 5:15 AM</li>
-							<li><span class="icon fa-solid fa-moon fa-fw"></span>Sunset At: 4:50 PM</li>
-							<li><span class="icon fa-solid fa-phone fa-fw"></span>Let’s Talk +88 01 27 14 101</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
+    <!-- Header Top -->
+    <div class="header-top">
+        <div class="auto-container">
+            <div class="inner-container">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="left-box d-flex align-items-center flex-wrap">
+                        <!-- Info List -->
+                        <ul class="header-top_list">
+                            <li><span class="icon fa-solid fa-envelope fa-fw"></span>Support24@gmail.com</li>
+                            <li><span class="icon fa-solid fa-location-dot fa-fw"></span>Suite 80 Golden Street Germeney
+                            </li>
+                        </ul>
+                        <div class="bismillah"><img src="{% static 'assets/images/icons/bismillah.png' %}" alt=""></div>
+                    </div>
+                    <ul class="header-top_list-two">
+                        <li><span class="icon fa-regular fa-sun fa-fw"></span>Sunrise At: 5:15 AM</li>
+                        <li><span class="icon fa-solid fa-moon fa-fw"></span>Sunset At: 4:50 PM</li>
+                        <li><span class="icon fa-solid fa-phone fa-fw"></span>Let’s Talk +88 01 27 14 101</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-		<!-- Header Upper -->
-		<div class="header-upper">
-			<div class="auto-container">
-				<div class="inner-container">
-					<div class="d-flex justify-content-between align-items-center flex-wrap">
+    <!-- Header Upper -->
+    <div class="header-upper">
+        <div class="auto-container">
+            <div class="inner-container">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
 
-						<div class="logo-box">
-							<div class="logo"><a href="{% url 'website:home' %}"><img src="{% static 'assets/images/logo-2.svg' %}" alt="" title=""></a></div>
-						</div>
+                    <div class="logo-box">
+                        <div class="logo"><a href="{% url 'website:home' %}"><img
+                                src="{% static 'assets/images/logo-2.svg' %}" alt="" title=""></a></div>
+                    </div>
 
-						<div class="nav-outer">
-							<!-- Main Menu -->
-							<nav class="main-menu navbar-expand-md">
-								<div class="navbar-header">
-									<!-- Toggle Button -->
-									<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-										<span class="icon-bar"></span>
-										<span class="icon-bar"></span>
-										<span class="icon-bar"></span>
-									</button>
-								</div>
+                    <div class="nav-outer">
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md">
+                            <div class="navbar-header">
+                                <!-- Toggle Button -->
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
 
-								<div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
-									<ul class="navigation clearfix">
-										<li><a href="{% url 'website:home' %}">Home</a></li>
-										<li><a href="{% url 'website:courses' %}">Courses</a></li>
-										<li><a href="{% url 'website:services' %}">Services</a></li>
-										<li><a href="{% url 'website:about' %}">About</a></li>
-										<li><a href="{% url 'website:contact' %}">Contact</a></li>
-										<li><a href="{% url 'website:videos' %}">Videos</a></li>
-{#										<li><a href="{% url 'website:home' %}">Home</a></li>#}
+                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+                                <ul class="navigation clearfix">
+                                    <li><a href="{% url 'website:home' %}">Home</a></li>
+                                    <li><a href="{% url 'website:courses' %}">Courses</a></li>
+                                    <li><a href="{% url 'website:services' %}">Services</a></li>
+                                    <li><a href="{% url 'website:about' %}">About</a></li>
+                                    <li><a href="{% url 'website:contact' %}">Contact</a></li>
+                                    <li><a href="{% url 'website:videos' %}">Videos</a></li>
+                                    {% if user.is_authenticated %}
+                                    <li class="dropdown user-menu" >
+                                        <a href="#" class="text-warning " >{{ user.first_name|default:user.username }}
+                                        <i class="fa fa-home-lg"></i>
+                                        </a>
+                                        <ul>
+                                            <li><a href="/profile/">Profile</a></li>
+                                            <li><a href="/register-courses/">Courses</a></li>
+                                            <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                                        </ul>
+                                        <div class="dropdown-btn"><span class="fa fa-angle-down"></span></div>
+                                    </li>
+                                    {% endif %}
+                                    {#										<li><a href="{% url 'website:home' %}">Home</a></li>#}
 
-									</ul>
-								</div>
-							</nav>
-						</div>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
 
-						<!-- Main Menu End-->
-						<div class="outer-box d-flex align-items-center flex-wrap">
+                    <!-- Main Menu End-->
+                    <div class="outer-box d-flex align-items-center flex-wrap">
 
-							<!-- Search Btn -->
-							<div class="search-box-btn search-box-outer"><span class="icon fa fa-search"></span></div>
+                        <!-- Search Btn -->
+                        <div class="search-box-btn search-box-outer"><span class="icon fa fa-search"></span></div>
 
-							<!-- User Box -->
-							<a class="user-box theme-btn" href="{% url 'account_login' %}">
+                        <!-- User Box -->
+                        {% if user.is_authenticated %}
 
-								<span class="fa-regular fa-user fa-fw"></span>
-							</a>
+                        {% else %}
+                            <a class="user-box theme-btn" href="{% url 'account_login' %}">
 
-							<!-- Button Box -->
-							<div class="header_button-box">
-								<a href="{% url 'account_signup' %}" class="theme-btn btn-style-four">
-									<span class="btn-wrap">
-										<span class="text-one">Quick Join Now</span>
-										<span class="text-two">Quick Join Now</span>
-									</span>
-								</a>
-							</div>
+                                <span class="fa-regular fa-user fa-fw"></span>
+                            </a>
+                        {% endif %}
 
-							<!-- Mobile Navigation Toggler -->
-							<div class="mobile-nav-toggler"><span class="icon flaticon-menu"></span></div>
-						</div>
 
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--End Header Upper-->
+                        <!-- Button Box -->
+                        <div class="header_button-box">
+                            {% if user.is_authenticated %}
 
-		<!-- Mobile Menu  -->
-		<div class="mobile-menu">
-			<div class="menu-backdrop"></div>
-			<div class="close-btn"><span class="icon flaticon-close-1"></span></div>
 
-			<nav class="menu-box">
-				<div class="nav-logo"><a href="{% url 'website:home' %}"><img src="{% static 'assets/images/logo.svg' %}" alt="" title=""></a></div>
-				<div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
-								<div class="navbar-header">
-									<!-- Toggle Button -->
-									<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-										<span class="icon-bar"></span>
-										<span class="icon-bar"></span>
-										<span class="icon-bar"></span>
-									</button>
-								</div>
+                            {% else %}
+                                <!-- Join Button -->
+                                <a href="{% url 'account_signup' %}" class="theme-btn btn-style-four">
+            <span class="btn-wrap">
+                <span class="text-one">Quick Join Now</span>
+                <span class="text-two">Quick Join Now</span>
+            </span>
+                                </a>
+                            {% endif %}
+                        </div>
 
-								<div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
-									<ul class="navigation clearfix">
-										<li><a href="{% url 'website:home' %}">Home</a></li>
-										<li><a href="{% url 'website:courses' %}">Courses</a></li>
-										<li><a href="{% url 'website:services' %}">Services</a></li>
-										<li><a href="{% url 'website:about' %}">About</a></li>
-										<li><a href="{% url 'website:contact' %}">Contact</a></li>
-										<li><a href="{% url 'website:videos' %}">Videos</a></li>
-									</ul>
-								</div>
-							</div>
-			</nav>
-		</div>
-		<!-- End Mobile Menu -->
 
-	</header>
+                        <!-- Mobile Navigation Toggler -->
+                        <div class="mobile-nav-toggler"><span class="icon flaticon-menu"></span></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Header Upper-->
+
+    <!-- Mobile Menu  -->
+    <div class="mobile-menu">
+        <div class="menu-backdrop"></div>
+        <div class="close-btn"><span class="icon flaticon-close-1"></span></div>
+
+        <nav class="menu-box">
+            <div class="nav-logo"><a href="{% url 'website:home' %}"><img src="{% static 'assets/images/logo.svg' %}"
+                                                                          alt="" title=""></a></div>
+            <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                <div class="navbar-header">
+                    <!-- Toggle Button -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+                <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+                    <ul class="navigation clearfix">
+                        <li><a href="{% url 'website:home' %}">Home</a></li>
+                        <li><a href="{% url 'website:courses' %}">Courses</a></li>
+                        <li><a href="{% url 'website:services' %}">Services</a></li>
+                        <li><a href="{% url 'website:about' %}">About</a></li>
+                        <li><a href="{% url 'website:contact' %}">Contact</a></li>
+                        <li><a href="{% url 'website:videos' %}">Videos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- End Mobile Menu -->
+
+</header>

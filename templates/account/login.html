@@ -28,23 +28,13 @@
 			<div class="row clearfix">
 
 				<div class="register-one_column mx-auto col-lg-8 col-md-12 col-sm-12">
-					<div class="register-one_column-outer">
+					<div class="register-one_column-outer border" style="background: transparent;">
 						<!-- Login Form -->
 						<div class="styled-form">
 
-							<form method="post" action="https://themazine.com/html/Alquran-2/alquran/alquran/index.html">
-								<div class="form-group">
-									<input type="text" name="username" value="" placeholder="Username or email address*" required="">
-								</div>
-								<div class="form-group">
-									<input type="password" name="password" value="" placeholder="Password*" required="">
-								</div>
-								<div class="form-group">
-									<div class="check-box">
-										<input type="checkbox" name="remember-password" id="type-1">
-										<label for="type-1">Remember Me?</label>
-									</div>
-								</div>
+							<form method="post" action="{% url 'account_login' %}">
+								 {% csrf_token %}
+                                {{ form|crispy }}
 								<div class="form-group d-flex align-items-center flex-wrap">
 									<button class="theme-btn btn-style-one">
 										<span class="btn-wrap">

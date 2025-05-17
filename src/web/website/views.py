@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
+
+from src.services.courses.models import Course
 
 
 # Create your views here.
@@ -13,11 +15,15 @@ class ContactView(TemplateView):
 class AboutView(TemplateView):
     template_name = "website/about.html"
 
-class CoursesView(TemplateView):
+class CoursesView(ListView):
+    model = Course
     template_name = "website/courses.html"
+    context_object_name = 'courses'
 
-class CoursesDetailsView(TemplateView):
+class CoursesDetailsView(DetailView):
+    model = Course
     template_name = "website/courses-details.html"
+    context_object_name = 'course'
 
 class ServicesView(TemplateView):
     template_name = "website/services.html"

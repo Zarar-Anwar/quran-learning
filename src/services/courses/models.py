@@ -4,7 +4,6 @@ from datetime import timedelta
 
 from src.services.users.models import User
 
-
 class Instructor(models.Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='instructors/')

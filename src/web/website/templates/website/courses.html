@@ -3,59 +3,82 @@
 {% load static %}
 
 {% block title %}
-Courses
+    Courses
 {% endblock %}
 
 {% block content %}
 
-    <section class="page-title" style="background-image:url(' {% static "assets/images/background/page-title.jpg" %}');margin-top:100px">
+    <section class="page-title"
+             style="background-image:url(' {% static "assets/images/background/page-title.jpg" %}');margin-top:100px">
         <div class="auto-container">
-			<h2>Our Courses</h2>
-			<ul class="bread-crumb clearfix">
-				<li><a href="index.html">Home</a></li>
-				<li>Our Courses</li>
-			</ul>
+            <h2>Our Courses</h2>
+            <ul class="bread-crumb clearfix">
+                <li><a href="index.html">Home</a></li>
+                <li>Our Courses</li>
+            </ul>
         </div>
     </section>
 
-    <section class="courses-two" style="background-image:url(' {% static "assets/images/background/courses-two_bg.png" %}')">
-		<div class="auto-container">
-			<div class="row clearfix">
+    <section class="courses-two"
+             style="background-image:url(' {% static "assets/images/background/courses-two_bg.png" %}')">
+        <div class="auto-container">
+            <div class="row clearfix">
 
-                {% for i in "123456" %}
+                {% for course in courses %}
+                    <div class="course-block_two col-lg-4 col-md-6 col-sm-12">
+                        <div class="course-block_two-inner wow fadeInLeft animated"
+                             data-wow-delay="0ms" data-wow-duration="1000ms"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 0ms; animation-name: fadeInLeft;">
 
-				<div class="course-block_two col-lg-4 col-md-6 col-sm-12">
-					<div class="course-block_two-inner wow fadeInLeft animated" data-wow-delay="0ms" data-wow-duration="1000ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 0ms; animation-name: fadeInLeft;">
-						<div class="course-block_two-image">
-							<a href="{% url 'website:courses-details' %}"><img src="{% static 'assets/images/resource/course-5.jpg' %}" alt=""></a>
-						</div>
-						<div class="course-block_two-content">
-							<div class="course-block_two-icon">
-								<img src="{% static 'assets/images/icons/course-block_two.png' %}" alt="">
-							</div>
-							<a href="{% url 'website:courses-details' %}" class="course-block_two-study">Study Now</a>
-							<h4 class="course-block_two-heading"><a href="{% url 'website:courses-details' %}">Quran Intermediate Course brother</a></h4>
-							<ul class="course-block_two-list d-flex justify-content-between flex-wrap align-items-center">
-								<li><span>20</span>lessons</li>
-								<li><span>10</span>weeks</li>
-								<li><span>50</span>enroll</li>
-							</ul>
-							<div class="course-block_two-lower d-flex justify-content-between flex-wrap">
-								<div class="course-block_two-author">
-									<div class="course-block_two-author_image"><img src="{% static 'assets/images/resource/author-5.png' %}" alt=""></div>
-									<strong>Habib Al Noor</strong>
-									Arabic Teacher
-								</div>
-								<div class="course-block_two-price">$22.00 <span>course free</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
+                            <div class="course-block_two-image">
+                                <a href="{% url 'website:courses-details' course.id %}">
+                                    <img src="{{ course.image.url }}" alt="{{ course.title }}">
+                                </a>
+                            </div>
 
+                            <div class="course-block_two-content">
+                                <div class="course-block_two-icon">
+                                    <img src="{% static 'assets/images/icons/course-block_two.png' %}" alt="">
+                                </div>
+
+                                <a href="{% url 'website:courses-details' course.id %}" class="course-block_two-study">Study
+                                    Now</a>
+
+                                <h4 class="course-block_two-heading">
+                                    <a href="{% url 'website:courses-details' course.id %}">{{ course.title }}</a>
+                                </h4>
+
+                                <ul class="course-block_two-list d-flex justify-content-between flex-wrap align-items-center">
+                                    <li><span>{{ course.lessons_count }}</span> lessons</li>
+                                    <li><span>{{ course.duration_weeks }}</span> weeks</li>
+                                    <li><span>{{ course.enrollment_set.count }}</span> enroll</li>
+                                    <!-- count of enrollments -->
+                                </ul>
+
+                                <div class="course-block_two-lower d-flex justify-content-between flex-wrap">
+                                    <div class="course-block_two-author">
+                                        <div class="course-block_two-author_image">
+                                            <img src="{{ course.instructor.image.url }}"
+                                                 alt="{{ course.instructor.name }}">
+                                        </div>
+                                        <strong>{{ course.instructor.name }}</strong>
+                                        {{ course.instructor.title }}
+                                    </div>
+
+                                    <div class="course-block_two-price">${{ course.price }} <span>course fee</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-danger">No courses available right now.</p>
                 {% endfor %}
-			</div>
-		</div>
-	</section>
+
+            </div>
+        </div>
+    </section>
 
 
 
