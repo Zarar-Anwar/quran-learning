@@ -3,185 +3,199 @@
 {% load static %}
 
 {% block title %}
-Courses Details - {{ course.title }}
+    Courses Details - {{ course.title }}
 {% endblock %}
 
 {% block content %}
 
-<section class="page-title" style="background-image:url('{% static "assets/images/background/page-title.jpg" %}'); margin-top:150px;">
-    <div class="auto-container">
-        <h2>{{ course.title }}</h2>
-        <ul class="bread-crumb clearfix">
-            <li><a href="{% url 'website:home' %}">Home</a></li>
-            <li>Courses Details</li>
-        </ul>
-    </div>
-</section>
+    <section class="page-title"
+             style="background-image:url('{% static "assets/images/background/page-title.jpg" %}'); margin-top:150px;">
+        <div class="auto-container">
+            <h2>{{ course.title }}</h2>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{% url 'website:home' %}">Home</a></li>
+                <li>Courses Details</li>
+            </ul>
+        </div>
+    </section>
 
-<div class="sidebar-page-container style-two">
-    <div class="auto-container">
-        <div class="row clearfix">
+    <div class="sidebar-page-container style-two">
+        <div class="auto-container">
+            <div class="row clearfix">
 
-            <!-- Content Side -->
-            <div class="content-side col-lg-8 col-md-12 col-sm-12">
-                <div class="course-detail">
-                    <div class="course-detail_inner">
+                <!-- Content Side -->
+                <div class="content-side col-lg-8 col-md-12 col-sm-12">
+                    <div class="course-detail">
+                        <div class="course-detail_inner">
 
-                        <!-- Course Image -->
-                        <div class="course-detail_image">
-                            <img src="{{ course.image.url }}" alt="{{ course.title }}">
-                        </div>
-
-                        <!-- Course Content -->
-                        <div class="course-detail_content">
-                            <h3 class="course-detail_heading">{{ course.title }}</h3>
-
-                            <div class="course-detail_info d-flex justify-content-between align-items-center flex-wrap">
-
-                                <!-- Author -->
-                                <div class="course-detail_author">
-                                    <div class="course-detail_author-image">
-                                        <img src="{{ course.instructor.image.url }}" alt="{{ course.instructor.name }}">
-                                    </div>
-                                    {{ course.instructor.name }}
-                                    <span>{{ course.instructor.title }}</span>
-                                </div>
-
-                                <!-- List -->
-                                <ul class="course-detail_list">
-                                    <li><span>{{ course.lessons_count }}</span> lessons</li>
-                                    <li><span>{{ course.duration_weeks }}</span> weeks</li>
-
-                                    {# Count enrollments dynamically #}
-                                    <li><span>{{ course.enrollment_set.count }}</span> enroll</li>
-                                </ul>
-
-                                <div class="course-detail_price">${{ course.price }} <span>Course Fee</span></div>
+                            <!-- Course Image -->
+                            <div class="course-detail_image ratio ratio-16x9">
+                                <img src="{{ course.image.url }}" alt="{{ course.title }}"
+                                     class="img-fluid w-100 h-100 object-fit-contain">
                             </div>
 
-                            <h4 class="course-detail_subtitle">Overview</h4>
-                            <p>{{ course.overview }}</p>
+                            <!-- Course Content -->
+                            <div class="course-detail_content">
+                                <h3 class="course-detail_heading">{{ course.title }}</h3>
 
-                            <!-- Product Info Tabs -->
-                            <div class="course-detail-info-tabs">
+                                <div class="course-detail_info d-flex justify-content-between align-items-center flex-wrap">
 
-                                <div class="course-detail-tabs tabs-box">
+                                    <!-- Author -->
+                                    <div class="course-detail_author">
+                                        <div class="course-detail_author-image">
+                                            <img src="{{ course.instructor.image.url }}"
+                                                 alt="{{ course.instructor.name }}">
+                                        </div>
+                                        {{ course.instructor.name }}
+                                        <span>{{ course.instructor.title }}</span>
+                                    </div>
 
-                                    <!-- Tab Buttons -->
-                                    <ul class="tab-btns tab-buttons clearfix">
-                                        <li data-tab="#prod-curriculum" class="tab-btn active-btn">Curriculum</li>
-                                        <li data-tab="#prod-instructor" class="tab-btn">Instructor</li>
-                                        <li data-tab="#prod-review" class="tab-btn">Review</li>
-                                        <li data-tab="#prod-faq" class="tab-btn">Faq</li>
+                                    <!-- List -->
+                                    <ul class="course-detail_list">
+                                        <li><span>{{ course.lessons_count }}</span> lessons</li>
+                                        <li><span>{{ course.duration_weeks }}</span> weeks</li>
+
+                                        {# Count enrollments dynamically #}
+                                        <li><span>{{ course.enrollment_set.count }}</span> enroll</li>
                                     </ul>
 
-                                    <!-- Tabs Content -->
-                                    <div class="tabs-content">
-
-                                        <!-- Curriculum Tab -->
-                                        <div class="tab active-tab" id="prod-curriculum">
-                                            <div class="content">
-                                                <h4 class="course-detail_subtitle">Course Structure</h4>
-                                                <p>{{ course.description }}</p>
-
-                                                <!-- Accordion Box for Curriculum Sections -->
-                                                <ul class="accordion-box">
-                                                    {% for section in course.sections.all %}
-                                                        <li class="accordion block">
-                                                            <div class="acc-btn">
-                                                                <div class="icon-outer">
-                                                                    <span class="icon icon-plus flaticon-padlock"></span>
-                                                                    <span class="icon icon-minus flaticon-check-mark"></span>
-                                                                </div>
-                                                                {{ section.title }}
-                                                            </div>
-
-                                                            <div class="acc-content">
-                                                                <div class="content">
-                                                                    <div class="text">{{ section.description }}</div>
-
-                                                                    <!-- Lessons in this section -->
-                                                                    <ul>
-                                                                        {% for lesson in section.lessons.all %}
-                                                                            <li>
-                                                                                {{ lesson.title }}
-                                                                                {% if lesson.is_preview_available %}
-                                                                                    <i class="preview">preview</i>
-                                                                                {% endif %}
-                                                                            </li>
-                                                                        {% endfor %}
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    {% empty %}
-                                                        <p>No curriculum sections available.</p>
-                                                    {% endfor %}
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <!-- Instructor Tab -->
-                                        <div class="tab" id="prod-instructor">
-                                            <div class="content">
-                                                <div class="course-author_box">
-                                                    <div class="course-author_image">
-                                                        <img src="{{ course.instructor.image.url }}" alt="{{ course.instructor.name }}">
-                                                    </div>
-                                                    <h4>{{ course.instructor.name }}</h4>
-                                                    <span>{{ course.instructor.title }}</span>
-                                                    <p>{{ course.instructor.bio }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Review Tab -->
-                                        <div class="tab" id="prod-review">
-                                            <div class="content">
-                                                <p>No reviews available yet.</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- FAQ Tab -->
-                                        <div class="tab" id="prod-faq">
-                                            <div class="content">
-                                                <p>No FAQs available yet.</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                    <div class="course-detail_price">${{ course.price }} <span>Course Fee</span></div>
                                 </div>
 
+                                <h4 class="course-detail_subtitle">Overview</h4>
+                                <p>{{ course.overview }}</p>
+
+                                <!-- Product Info Tabs -->
+                                <div class="course-detail-info-tabs">
+
+                                    <div class="course-detail-tabs tabs-box">
+
+                                        <!-- Tab Buttons -->
+                                        <ul class="tab-btns tab-buttons clearfix">
+                                            <li data-tab="#prod-curriculum" class="tab-btn active-btn">Curriculum</li>
+                                            <li data-tab="#prod-instructor" class="tab-btn">Instructor</li>
+                                            <li data-tab="#prod-review" class="tab-btn">Review</li>
+                                            <li data-tab="#prod-faq" class="tab-btn">Faq</li>
+                                        </ul>
+
+                                        <!-- Tabs Content -->
+                                        <div class="tabs-content">
+
+                                            <!-- Curriculum Tab -->
+                                            <div class="tab active-tab" id="prod-curriculum">
+                                                <div class="content">
+                                                    <h4 class="course-detail_subtitle">Course Structure</h4>
+                                                    <p>{{ course.description }}</p>
+
+                                                    <!-- Accordion Box for Curriculum Sections -->
+                                                    <ul class="accordion-box">
+                                                        {% for section in course.sections.all %}
+                                                            <li class="accordion block">
+                                                                <div class="acc-btn">
+                                                                    <div class="icon-outer">
+                                                                        <span class="icon icon-plus flaticon-padlock"></span>
+                                                                        <span class="icon icon-minus flaticon-check-mark"></span>
+                                                                    </div>
+                                                                    {{ section.title }}
+                                                                </div>
+
+                                                                <div class="acc-content">
+                                                                    <div class="content">
+                                                                        <div class="text">{{ section.description }}</div>
+
+                                                                        <!-- Lessons in this section -->
+                                                                        <ul>
+                                                                            {% for lesson in section.lessons.all %}
+                                                                                <li>
+                                                                                    {{ lesson.title }}
+                                                                                    {% if lesson.is_preview_available %}
+                                                                                        <i class="preview">preview</i>
+                                                                                    {% endif %}
+                                                                                </li>
+                                                                            {% endfor %}
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        {% empty %}
+                                                            <p>No curriculum sections available.</p>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!-- Instructor Tab -->
+                                            <div class="tab" id="prod-instructor">
+                                                <div class="content">
+
+                                                    <div class="course-author_box">
+                                                        <div class="course-author_box-inner">
+                                                            <div class="course-author_box-image">
+                                                                <img src="{{ course.instructor.image.url }}"
+                                                                     alt="{{ course.instructor.name }}">
+                                                            </div>
+                                                            <h5 class="course-author_box-heading">{{ course.instructor.name }}<span>{{ course.instructor.title }}</span>
+                                                            </h5>
+                                                            <div class="course-author_box-text">{{ course.instructor.bio }}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Review Tab -->
+                                            <div class="tab" id="prod-review">
+                                                <div class="content">
+                                                    <p>No reviews available yet.</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- FAQ Tab -->
+                                            <div class="tab" id="prod-faq">
+                                                <div class="content">
+                                                    <p>No FAQs available yet.</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="sidebar-side col-lg-4 col-md-12 col-sm-12">
+                    <aside class="sidebar default-sidebar">
+
+                        <div class="sidebar-widget course-widget">
+                            <div class="widget-content">
+                                <!-- Sidebar Title -->
+                                <div class="sidebar-title">
+                                    <h4>Course Features</h4>
+                                </div>
+                                <ul class="course-list">
+                                    <li>Course Fee <span>${{ course.price }}</span></li>
+                                    <li>Lessons <span>{{ course.lessons_count }}</span></li>
+                                    <li>Duration<span> {{ course.duration_weeks }} weeks</span></li>
+                                    <li>Students<span>50</span></li>
+                                    <li><span>Trial Available</span> {{ course.is_trial_available|yesno:"Yes,No" }}</li>
+                                    {% if course.is_trial_available %}
+                                        <li><span>Trial Days</span> {{ course.trial_days }} days</li>
+                                    {% endif %}
+                                    <li>Level<span>Advanced</span></li>
+                                </ul>
+                                <a class="theme-btn course-appy_btn" href="#">Apply Now</a>
                             </div>
                         </div>
 
-                    </div>
+                    </aside>
                 </div>
+
             </div>
-
-            <!-- Sidebar -->
-            <div class="sidebar-side col-lg-4 col-md-12 col-sm-12">
-                <aside class="sidebar default-sidebar">
-
-                    <!-- Course Info Widget -->
-                    <div class="sidebar-widget course-info-widget">
-                        <ul>
-                            <li><span>Course Fee</span> ${{ course.price }}</li>
-                            <li><span>Duration</span> {{ course.duration_weeks }} weeks</li>
-                            <li><span>Lessons</span> {{ course.lessons_count }}</li>
-                            <li><span>Trial Available</span> {{ course.is_trial_available|yesno:"Yes,No" }}</li>
-                            {% if course.is_trial_available %}
-                                <li><span>Trial Days</span> {{ course.trial_days }} days</li>
-                            {% endif %}
-                        </ul>
-                        <a href="#" class="theme-btn btn-style-one">Enroll Now</a>
-                    </div>
-
-                </aside>
-            </div>
-
         </div>
     </div>
-</div>
 
 {% endblock content %}

@@ -25,53 +25,7 @@
             <div class="row clearfix">
 
                 {% for course in courses %}
-                    <div class="course-block_two col-lg-4 col-md-6 col-sm-12">
-                        <div class="course-block_two-inner wow fadeInLeft animated"
-                             data-wow-delay="0ms" data-wow-duration="1000ms"
-                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 0ms; animation-name: fadeInLeft;">
-
-                            <div class="course-block_two-image">
-                                <a href="{% url 'website:courses-details' course.id %}">
-                                    <img src="{{ course.image.url }}" alt="{{ course.title }}">
-                                </a>
-                            </div>
-
-                            <div class="course-block_two-content">
-                                <div class="course-block_two-icon">
-                                    <img src="{% static 'assets/images/icons/course-block_two.png' %}" alt="">
-                                </div>
-
-                                <a href="{% url 'website:courses-details' course.id %}" class="course-block_two-study">Study
-                                    Now</a>
-
-                                <h4 class="course-block_two-heading">
-                                    <a href="{% url 'website:courses-details' course.id %}">{{ course.title }}</a>
-                                </h4>
-
-                                <ul class="course-block_two-list d-flex justify-content-between flex-wrap align-items-center">
-                                    <li><span>{{ course.lessons_count }}</span> lessons</li>
-                                    <li><span>{{ course.duration_weeks }}</span> weeks</li>
-                                    <li><span>{{ course.enrollment_set.count }}</span> enroll</li>
-                                    <!-- count of enrollments -->
-                                </ul>
-
-                                <div class="course-block_two-lower d-flex justify-content-between flex-wrap">
-                                    <div class="course-block_two-author">
-                                        <div class="course-block_two-author_image">
-                                            <img src="{{ course.instructor.image.url }}"
-                                                 alt="{{ course.instructor.name }}">
-                                        </div>
-                                        <strong>{{ course.instructor.name }}</strong>
-                                        {{ course.instructor.title }}
-                                    </div>
-
-                                    <div class="course-block_two-price">${{ course.price }} <span>course fee</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                    {% include 'website/include/course.html' %}
                 {% empty %}
                     <p class="text-danger">No courses available right now.</p>
                 {% endfor %}
@@ -79,8 +33,5 @@
             </div>
         </div>
     </section>
-
-
-
 
 {% endblock %}

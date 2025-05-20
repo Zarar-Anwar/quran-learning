@@ -12,8 +12,8 @@
     <meta name="author" content="zaala">
     <meta name="developer" content="zaalasociety.com">
     <meta name="org-name" content="zaalasociety"/>
-{#    <link rel="icon" href="#}
-{#            {% if app.favicon %}{{ app.favicon.url }}{% else %}{% static 'core/images/logos/favico.ico' %}{% endif %}">#}
+    {#    <link rel="icon" href="#}
+    {#            {% if app.favicon %}{{ app.favicon.url }}{% else %}{% static 'core/images/logos/favico.ico' %}{% endif %}">#}
 
     <title>
 
@@ -53,7 +53,9 @@
 
 </head>
 <body>
-
+ <div class="row">
+        {% include 'messages.html' %}
+    </div>
 <div class="page-wrapper">
 
     <!-- Cursor -->
@@ -109,10 +111,6 @@
 
 </body>
 </html>
-{##}
-{#<div class="row">#}
-{#    {% include 'messages.html' %}#}
-{#</div>#}
 
 
 {# BASE EXTERNAL SCRIPTS OR LINKS THAT ARE REQUIRED IN PAGE #}

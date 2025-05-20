@@ -3,11 +3,125 @@
 {% load static %}
 
 {% block title %}
-Videos
+    Videos
 {% endblock %}
 
 {% block content %}
 
-<h1 style="margin-top: 250px;text-align: center;color: black">Videos</h1>
+    <section class="page-title"
+             style="background-image:url(' {% static "assets/images/background/page-title.jpg" %}');margin-top:150px">
+        <div class="auto-container">
+            <h2>Video List</h2>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{% url 'website:home' %}">Home</a></li>
+                <li>Video List</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="sidebar-page-container">
+        <div class="auto-container">
+            <div class="row clearfix">
+
+                <!-- Content Side -->
+                <div class="content-side col-lg-8 col-md-12 col-sm-12">
+                    <div class="blog-list">
+
+                        {% if videos %}
+                            {% for video in videos %}
+                                <div class="news-block_three">
+                                    <div class="news-block_three-inner">
+                                        <div class="news-block_three-image">
+                                            <video width="100%" height="auto" controls>
+                                                <source src="{{ video.video_file.url }}" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
+
+                                        <div class="news-block_three-content">
+                                            <ul class="news-block_three-meta">
+
+                                                <li><span
+                                                        class="icon fa-solid fa-clock fa-fw"></span>{{ video.publish_date }}
+                                                </li>
+                                            </ul>
+                                            <h3 class="news-block_three-heading" style="color: var(--main-color);">
+                                                {{ video.title }}
+                                            </h3>
+                                            <div class="news-block_three-text">{{ video.description|truncatechars:200 }}</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <ul class="styled-pagination">
+                                {% if videos.has_previous %}
+                                    <li>
+                                        <a href="?{% if request.GET.title %}title={{ request.GET.title }}&{% endif %}page={{ videos.previous_page_number }}">Previous</a>
+                                    </li>
+                                {% endif %}
+
+                                {% for num in videos.paginator.page_range %}
+                                    {% if videos.number == num %}
+                                        <li><a class="active"
+                                               href="?{% if request.GET.title %}title={{ request.GET.title }}&{% endif %}page={{ num }}">{{ num }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <a href="?{% if request.GET.title %}title={{ request.GET.title }}&{% endif %}page={{ num }}">{{ num }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if videos.has_next %}
+                                    <li class="next"><a
+                                            href="?{% if request.GET.title %}title={{ request.GET.title }}&{% endif %}page={{ videos.next_page_number }}">Next</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+
+                        {% else %}
+                            <div class="mx-auto">
+                                <p class="text-danger">No videos available right now.</p>
+                            </div>
+                        {% endif %}
+
+
+                    </div>
+                </div>
+
+                <!-- Sidebar Side -->
+                <!-- Sidebar Side -->
+                <!-- Sidebar Side -->
+                <div class="sidebar-side col-lg-4 col-md-12 col-sm-12">
+                    <aside class="sidebar">
+
+                        <!-- Sidebar Widget -->
+                        <div class="sidebar-widget search-box">
+                            <form method="get" action=".">
+                                <div class="form-group">
+                                    <input type="search" name="title" placeholder="Search Resources" required=""
+                                           value="{{ request.GET.title }}">
+                                    <button type="submit"><span class="icon fa fa-search"></span></button>
+                                </div>
+                            </form>
+
+                            {% if request.GET.title %}
+                                <div class="form-group mt-2">
+                                    <a href="{% url 'website:videos' %}" class="btn btn-sm btn-danger">Clear Filter</a>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </aside>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
 
 {% endblock %}

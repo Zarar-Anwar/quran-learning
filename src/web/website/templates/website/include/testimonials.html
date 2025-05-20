@@ -1,0 +1,65 @@
+{% load static %}
+
+<section class="testimonial-two"
+         style="background-image:url('{% static "assets/images/background/testimonial-two_bg.png" %}')">
+    <div class="auto-container">
+        <!-- Sec Title -->
+        <div class="sec-title centered">
+            <div class="sec-title_title">Testimonials</div>
+            <h2 class="sec-title_heading">Trusted By Thousand Of <br> Students And Tutors</h2>
+        </div>
+        {% if testimonials %}
+            <!-- Carousel -->
+            <div class="testimonial-two_carousel swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
+                <div class="swiper-wrapper" id="swiper-wrapper-6418ae471d2851db" aria-live="off"
+                     style="transform: translate3d(-750px, 0px, 0px); transition-duration: 0ms;">
+
+
+                    {% for testimonial in testimonials %}
+                        <div class="swiper-slide">
+                            <div class="testimonial-block_two">
+                                <div class="testimonial-block_two-inner">
+                                    <div class="testimonial-block_two-rating">
+                                        {% for _ in "12345"|slice:":testimonial.rating"|make_list %}
+                                            <span class="fa-regular fa-star fa-fw"></span>
+                                        {% endfor %}
+                                    </div>
+                                    <h4 class="testimonial-block_two-heading">Customers Review</h4>
+                                    <div class="testimonial-block_two-text">{{ testimonial.review }}</div>
+                                    <div class="testimonial-block_two-author">
+                                        <div class="author-image">
+                                            <img src="{{ testimonial.author_image.url }}" alt="">
+                                        </div>
+                                        {{ testimonial.full_name }}<br>
+                                        <span>{{ testimonial.role }}</span>
+                                    </div>
+                                    <div class="testimonial-block_two_ameen">
+                                        <img src="{{ testimonial.ameen_icon.url }}" alt="">
+                                    </div>
+                                    <div class="testimonial-block_two-icon">
+                                        <img src="{{ testimonial.featured_icon.url }}" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+
+                <!-- If we need pagination -->
+                <div class="testimonial-two_pagination swiper-pagination-clickable swiper-pagination-bullets"><span
+                        class="swiper-pagination-bullet" tabindex="0" role="button"
+                        aria-label="Go to slide 1"></span><span
+                        class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
+                        aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0"
+                                                                role="button" aria-label="Go to slide 3"></span></div>
+
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+        {% else %}
+            <div class="mx-auto">
+                <p class="text-danger">No testimonials available right now.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>

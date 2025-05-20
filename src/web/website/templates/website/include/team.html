@@ -1,0 +1,54 @@
+{% load static %}
+
+<section class="scholar-one" style="background-image:url(' {% static "assets/images/background/scholar-bg.png" %}')">
+    <div class="auto-container">
+        <!-- Sec Title -->
+        <div class="sec-title d-flex justify-content-between align-items-center flex-wrap">
+            <div class="left-box">
+                <div class="sec-title_title">Our Scholars</div>
+                <h2 class="sec-title_heading">All Our Teachers Are Graduates <br> From College Of Arabic</h2>
+            </div>
+            <!-- Button Box -->
+            <div class="scholar-one_button">
+                <a href="team.html" class="theme-btn btn-style-one">
+						<span class="btn-wrap">
+							<span class="text-one">Our Scholars</span>
+							<span class="text-two">Our Scholars</span>
+						</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+
+            {% if instructors %}
+
+                {% for instructor in instructors %}
+
+                    <div class="scholar-block_one col-lg-4 col-md-6 col-sm-12">
+                        <div class="scholar-block_one-inner wow fadeInLeft" data-wow-delay="0ms"
+                             data-wow-duration="1000ms"
+                             style="visibility: hidden; animation-duration: 1000ms; animation-delay: 0ms; animation-name: none;">
+                            <div class="scholar-block_one-image">
+                                <img
+                                        src="{{ instructor.image.url }}"
+                                        alt="">
+                            </div>
+                            <div class="scholar-block_one-content">
+                                <h4 class="scholar-block_one-heading" style="color: var(--main-color);">{{ instructor.name }}</h4>
+                                <div class="scholar-block_one-designation">{{ instructor.title }}</div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            {% else %}
+                <div class="mx-auto">
+                    <p class="text-danger">No team available right now.</p>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</section>

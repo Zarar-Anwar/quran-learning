@@ -8,11 +8,12 @@
 
 {% block content %}
 
-    <section class="page-title" style="background-image:url(' {% static "assets/images/background/page-title.jpg" %}');margin-top:100px">
+    <section class="page-title"
+             style="background-image:url(' {% static "assets/images/background/page-title.jpg" %}');margin-top:100px">
         <div class="auto-container">
             <h2>Contact</h2>
             <ul class="bread-crumb clearfix">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="{% url 'website:home' %}">Home</a></li>
                 <li>Contact</li>
             </ul>
         </div>
@@ -27,7 +28,7 @@
                         <div class="contact-info_outer">
                             <div class="contact-info_icon fa-solid fa-location-dot fa-fw"></div>
                             <h4 class="contact-info_heading">Our Address</h4>
-                            <div class="contact-info_text">Metro City Shop 11 floor <br> Fiolveien 230, Norway</div>
+                            <div class="contact-info_text">{{ app.address }}</div>
                         </div>
                     </div>
 
@@ -36,7 +37,7 @@
                         <div class="contact-info_outer">
                             <div class="contact-info_icon fa-solid fa-phone fa-fw"></div>
                             <h4 class="contact-info_heading">Our Phone</h4>
-                            <div class="contact-info_text">( +088 ) 48 26 48 26 <span>Let’s Talk +88 01 27 14 101</span>
+                            <div class="contact-info_text"> {{ app.contact_phone1 }}<span>Let’s Talk {{ app.contact_phone1 }}</span>
                             </div>
                         </div>
                     </div>
@@ -46,7 +47,7 @@
                         <div class="contact-info_outer">
                             <div class="contact-info_icon fa-solid fa-envelope fa-fw"></div>
                             <h4 class="contact-info_heading">Email address</h4>
-                            <div class="contact-info_text">Isalm_quran@gmail.com <br> Info_hr@gmail.com</div>
+                            <div class="contact-info_text">{{ app.contact_email1 }} <br> {{ app.contact_email1 }}</div>
                         </div>
                     </div>
 
@@ -61,34 +62,35 @@
 
             <!-- Contact Form -->
             <div class="contact-form">
-                <form method="post" action="https://themazine.com/html/Alquran-2/alquran/alquran/sendemail.php"
-                      id="contact-form" novalidate="novalidate">
+                <form method="post" id="contact-form" novalidate="novalidate">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
 
                     <div class="form-group">
-                        <input type="text" name="username" placeholder="Full Name" required="">
+                        {{ form.full_name }}
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="email" placeholder="Your Email" required="">
+                        {{ form.email }}
                     </div>
 
                     <div class="form-group">
-                        <textarea class="" name="message" placeholder="Type your Message"></textarea>
+                        {{ form.message }}
                     </div>
 
                     <div class="form-group">
-                        <!-- Button Box -->
                         <div class="button-box">
                             <button type="submit" class="theme-btn btn-style-four">
-								<span class="btn-wrap">
-									<span class="text-one">Post Comment</span>
-									<span class="text-two">Post Comment</span>
-								</span>
+                <span class="btn-wrap">
+                    <span class="text-one">Post Comment</span>
+                    <span class="text-two">Post Comment</span>
+                </span>
                             </button>
                         </div>
                     </div>
-
                 </form>
+
+
             </div>
             <!-- End Comment Form -->
 
@@ -101,6 +103,5 @@
                     src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
         </div>
     </section>
-
 
 {% endblock %}
