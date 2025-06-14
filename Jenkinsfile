@@ -1,20 +1,26 @@
 pipeline {
     agent any
 
+    environment {
+        NEW_VERSION = '1.3.5'
+        SERVER_CREDENTIALS = credentials('server-credentials')
+    }
+
     stages {
 
         stage('Build') {
             steps {
                 echo 'Building Application'
+                echo "Server Credentials are ${SERVER_CREDENTIALS}"
             }
         }
 
         stage('Test') {
-            when{
-                expression{
-                    BRANCH_NAME == 'zaala-dev'
-                }
-            }
+//             when{
+//                 expression{
+//                     BRANCH_NAME == 'zaala-dev'
+//                 }
+//             }
             steps {
                  echo 'Testing Application'
             }
