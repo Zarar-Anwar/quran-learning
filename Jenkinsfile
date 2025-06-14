@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         NEW_VERSION = '1.3.5'
-        SERVER_CREDENTIALS = credentials('server-credentials')
+        SERVER_CREDENTIALS = credentials('zaala_websites')
     }
 
     stages {
