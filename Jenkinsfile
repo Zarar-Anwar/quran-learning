@@ -10,6 +10,11 @@ pipeline {
         }
 
         stage('Test') {
+            when{
+                expression{
+                    BRANCH_NAME == 'zaala-dev'
+                }
+            }
             steps {
                  echo 'Testing Application'
             }
@@ -18,6 +23,18 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying Application'
+            }
+        }
+
+        post{
+            always{
+            echo 'Always'
+            }
+            success{
+            echo 'On Success I Run'
+            }
+            failure{
+            echo 'On Failure I Run'
             }
         }
     }
