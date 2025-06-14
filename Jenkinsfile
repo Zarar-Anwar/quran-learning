@@ -25,8 +25,8 @@ pipeline {
                 echo 'Deploying Application'
             }
         }
-
-        post{
+    }
+    post{
             always{
             echo 'Always'
             }
@@ -37,5 +37,4 @@ pipeline {
             echo 'On Failure I Run'
             }
         }
-    }
 }
