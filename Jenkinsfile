@@ -54,16 +54,14 @@ pipeline {
             }
         }
 
-        stage('Verify Server') {
-            steps {
-                sh '''
-                    . ${VENV_DIR}/bin/activate
-                    echo "Verifying server is running..."
-                    curl -I http://localhost:${SERVER_PORT} || true
-                '''
-                sleep 30
-            }
-        }
+       stage('Verify Server') {
+    steps {
+        sh '''
+            . ${VENV_DIR}/bin/activate
+            curl -I http://localhost:${SERVER_PORT}/admin/ || true
+        '''
+    }
+}
     }
 
     post {
