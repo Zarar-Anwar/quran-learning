@@ -2,45 +2,47 @@ pipeline {
     agent any
 
     environment {
-        NEW_VERSION = '1.3.5'
-        SERVER_CREDENTIALS = credentials('zaala_websites')
+        VENV_DIR = 'venv'
+        DJANGO_SETTINGS_MODULE = 'root.settings'
     }
 
     stages {
-
-        stage('Build') {
+        stage('Setup Virtualenv') {
             steps {
-                echo 'Building Application'
-                echo "Server Credentials are ${SERVER_CREDENTIALS}"
+                sh """
+                    python -m venv ${VENV_DIR}
+                    . ${VENV_DIR}/bin/activate
+                    pip install --upgrade pip
+                """
             }
         }
 
-        stage('Test') {
-//             when{
-//                 expression{
-//                     BRANCH_NAME == 'zaala-dev'
-//                 }
-//             }
+        stage('Install Dependencies') {
             steps {
-                 echo 'Testing Application'
+                sh """
+                    . ${VENV_DIR}/bin/activate
+                    pip install -r requirements.txt
+                """
             }
         }
 
-        stage('Deploy') {
+        stage('Run Migrations') {
             steps {
-                echo 'Deploying Application'
+                sh """
+                    . ${VENV_DIR}/bin/activate
+                    python manage.py makemigrations accounts website users courses
+                    python manage.py migrate
+                """
+            }
+        }
+
+        stage('Start Dev Server') {
+            steps {
+                sh """
+                    . ${VENV_DIR}/bin/activate
+                    python manage.py runserver 0.0.0.0:8000
+                """
             }
         }
     }
-    post{
-            always{
-            echo 'Always'
-            }
-            success{
-            echo 'On Success I Run'
-            }
-            failure{
-            echo 'On Failure I Run'
-            }
-        }
 }
