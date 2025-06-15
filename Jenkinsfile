@@ -4,6 +4,7 @@ pipeline {
     environment {
         VENV_DIR = 'venv'
         DJANGO_SETTINGS_MODULE = 'root.settings'
+        SERVER_PORT = '8000'
     }
 
     stages {
@@ -40,9 +41,47 @@ pipeline {
             steps {
                 sh """
                     . ${VENV_DIR}/bin/activate
-                    python manage.py runserver 0.0.0.0:8000
+                    echo "Starting Django development server..."
+                    nohup python manage.py runserver 0.0.0.0:${SERVER_PORT} > server.log 2>&1 &
+                    echo $! > server.pid
+                    sleep 5  # Wait for server to start
+                    echo "Server started with PID $(cat server.pid)"
+                    echo "Access at: http://localhost:${SERVER_PORT}"
+                    echo "View logs with: tail -f server.log"
                 """
             }
+        }
+
+        stage('Verify Server') {
+            steps {
+                sh """
+                    . ${VENV_DIR}/bin/activate
+                    echo "Verifying server is running..."
+                    curl -I http://localhost:${SERVER_PORT} || true
+                """
+                sleep 30  // Keep server running for 30 seconds for testing
+            }
+        }
+    }
+
+    post {
+        always {
+            sh """
+                echo "Cleaning up..."
+                if [ -f server.pid ]; then
+                    echo "Stopping server with PID $(cat server.pid)"
+                    kill $(cat server.pid) || true
+                    rm -f server.pid
+                fi
+                echo "Current server processes:"
+                ps aux | grep runserver || true
+            """
+        }
+        success {
+            echo "Pipeline completed successfully"
+        }
+        failure {
+            echo "Pipeline failed - check logs for details"
         }
     }
 }
