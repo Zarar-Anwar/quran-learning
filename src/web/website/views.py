@@ -1,16 +1,19 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, FormView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.utils import timezone
 
 from src.core.filters import VideoFilter
 from src.core.forms import ContactMessageForm
 from src.core.models import Service, GalleryImage, Testimonial, Video
-from src.services.courses.models import Course, Instructor
+from src.services.courses.models import Course, Instructor, Enrollment
 from .forms import UserProfileForm, ChangePasswordForm
 
 
@@ -61,6 +64,15 @@ class CoursesDetailsView(DetailView):
     model = Course
     template_name = "website/courses-details.html"
     context_object_name = 'course'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['user_enrollment'] = Enrollment.objects.filter(
+                user=self.request.user, 
+                course=self.object
+            ).first()
+        return context
 
 
 class ServicesView(ListView):
@@ -97,6 +109,8 @@ class ProfileView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['profile_form'] = UserProfileForm(instance=self.request.user)
         context['password_form'] = ChangePasswordForm()
+        # Add user's enrolled courses
+        context['enrolled_courses'] = Enrollment.objects.filter(user=self.request.user).select_related('course', 'course__instructor')
         return context
     
     def post(self, request, *args, **kwargs):
@@ -134,3 +148,34 @@ class ProfileView(TemplateView):
                 return self.render_to_response(context)
         
         return redirect('website:profile')
+
+@login_required
+@require_POST
+def enroll_course(request, course_id):
+    """Enroll user in a course"""
+    course = get_object_or_404(Course, id=course_id)
+    user = request.user
+    
+    # Check if user is already enrolled
+    if Enrollment.objects.filter(user=user, course=course).exists():
+        messages.warning(request, f"You are already enrolled in {course.title}")
+        return JsonResponse({'status': 'already_enrolled', 'message': 'Already enrolled'})
+    
+    # Create enrollment
+    enrollment = Enrollment.objects.create(
+        user=user,
+        course=course,
+        is_trial=course.is_trial_available,
+        trial_started=timezone.now() if course.is_trial_available else None
+    )
+    
+    messages.success(request, f"Successfully enrolled in {course.title}")
+    return JsonResponse({'status': 'success', 'message': 'Enrollment successful'})
+
+@login_required
+def my_courses(request):
+    """View for user's enrolled courses"""
+    enrolled_courses = Enrollment.objects.filter(user=request.user).select_related('course', 'course__instructor')
+    return render(request, 'website/my_courses.html', {
+        'enrolled_courses': enrolled_courses
+    })

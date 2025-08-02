@@ -1,7 +1,7 @@
 from django.urls import path
 
 from src.web.website.views import HomeView, AboutView, ContactView, CoursesView, ServicesView, ScholarsView, \
-    CoursesDetailsView, VideoListView, ProfileView
+    CoursesDetailsView, VideoListView, ProfileView, enroll_course, my_courses
 
 app_name = "website"
 urlpatterns = [
@@ -14,5 +14,6 @@ urlpatterns = [
     path('videos/',VideoListView.as_view() , name="videos"),
     path('scholars', ScholarsView.as_view() , name="scholars"),
     path('profile/', ProfileView.as_view(), name="profile"),
-
+    path('enroll-course/<int:course_id>/', enroll_course, name="enroll_course"),
+    path('my-courses/', my_courses, name="my_courses"),
 ]

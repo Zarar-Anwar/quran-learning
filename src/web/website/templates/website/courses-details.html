@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-
+    {% csrf_token %}
     <section class="page-title"
              style="background-image:url('{% static "assets/images/background/page-title.jpg" %}'); margin-top:150px;">
         <div class="auto-container">
@@ -98,7 +98,6 @@
                                                                     </div>
                                                                     {{ section.title }}
                                                                 </div>
-
                                                                 <div class="acc-content">
                                                                     <div class="content">
                                                                         <div class="text">{{ section.description }}</div>
@@ -180,14 +179,43 @@
                                     <li>Course Fee <span>${{ course.price }}</span></li>
                                     <li>Lessons <span>{{ course.lessons_count }}</span></li>
                                     <li>Duration<span> {{ course.duration_weeks }} weeks</span></li>
-                                    <li>Students<span>50</span></li>
+                                    <li>Students<span>{{ course.enrollment_set.count }}</span></li>
                                     <li><span>Trial Available</span> {{ course.is_trial_available|yesno:"Yes,No" }}</li>
                                     {% if course.is_trial_available %}
                                         <li><span>Trial Days</span> {{ course.trial_days }} days</li>
                                     {% endif %}
                                     <li>Level<span>Advanced</span></li>
                                 </ul>
-                                <a class="theme-btn course-appy_btn" href="#">Apply Now</a>
+                                
+                                <!-- Enrollment Status -->
+                                {% if user.is_authenticated %}
+                                    {% if user_enrollment %}
+                                        <div class="enrollment-status">
+                                            <div class="alert alert-success">
+                                                <i class="fas fa-check-circle"></i>
+                                                <strong>Enrolled!</strong>
+                                                <p>You are enrolled in this course</p>
+                                                <small>Enrolled on: {{ user_enrollment.enrolled_on|date:"M d, Y" }}</small>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <button class="theme-btn course-appy_btn enroll-btn" data-course-id="{{ course.id }}">
+                                            <i class="fas fa-graduation-cap"></i> Enroll Now
+                                        </button>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{% url 'account_login' %}" class="theme-btn course-appy_btn">
+                                        <i class="fas fa-sign-in-alt"></i> Login to Enroll
+                                    </a>
+                                {% endif %}
+                                
+                                <!-- WhatsApp Contact -->
+                                <div class="whatsapp-contact mt-3">
+                                    <a href="https://wa.me/+1234567890?text=Hi! I'm interested in the course: {{ course.title }}. Can you provide more information?" 
+                                       class="btn btn-success btn-block whatsapp-btn" target="_blank">
+                                        <i class="fab fa-whatsapp"></i> Contact Course Supervisor
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -199,3 +227,84 @@
     </div>
 
 {% endblock content %}
+
+{% block css %}
+<style>
+.enrollment-status {
+    margin-bottom: 20px;
+}
+
+.enrollment-status .alert {
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.enrollment-status i {
+    margin-right: 8px;
+}
+
+.enroll-btn {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.whatsapp-contact {
+    margin-top: 20px;
+}
+
+.whatsapp-btn {
+    background-color: #25d366;
+    border-color: #25d366;
+    width: 100%;
+}
+
+.whatsapp-btn:hover {
+    background-color: #128c7e;
+    border-color: #128c7e;
+}
+
+.whatsapp-btn i {
+    margin-right: 8px;
+}
+</style>
+{% endblock %}
+
+{% block js_code %}
+<script>
+$(document).ready(function() {
+    // Handle course enrollment
+    $('.enroll-btn').click(function() {
+        const courseId = $(this).data('course-id');
+        const button = $(this);
+        
+        $.ajax({
+            url: `/enroll-course/${courseId}/`,
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': $('[name=csrfmiddlewaretoken]').val()
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    // Replace button with enrolled status
+                    button.replaceWith(`
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle"></i>
+                            <strong>Enrolled!</strong>
+                            <p>You are enrolled in this course</p>
+                        </div>
+                    `);
+                    
+                    // Show success message
+                    alert('Successfully enrolled in the course!');
+                } else if (response.status === 'already_enrolled') {
+                    alert('You are already enrolled in this course!');
+                }
+            },
+            error: function() {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
