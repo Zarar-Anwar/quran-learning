@@ -209,13 +209,15 @@
                                     </a>
                                 {% endif %}
                                 
-                                <!-- WhatsApp Contact -->
-                                <div class="whatsapp-contact mt-3">
-                                    <a href="https://wa.me/+1234567890?text=Hi! I'm interested in the course: {{ course.title }}. Can you provide more information?" 
-                                       class="btn btn-success btn-block whatsapp-btn" target="_blank">
-                                        <i class="fab fa-whatsapp"></i> Contact Course Supervisor
-                                    </a>
-                                </div>
+                                <!-- WhatsApp Contact - Only show for enrolled users -->
+                                {% if user.is_authenticated and user_enrollment %}
+                                    <div class="whatsapp-contact mt-3">
+                                        <a href="https://wa.me/{{ app.whatsapp_number }}?text=Hi! I have a question about my enrolled course: {{ course.title }}. Can you help me?" 
+                                           class="btn btn-success btn-block whatsapp-btn" target="_blank">
+                                            <i class="fab fa-whatsapp"></i> Contact Course Supervisor
+                                        </a>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
 
@@ -294,8 +296,7 @@ $(document).ready(function() {
                         </div>
                     `);
                     
-                    // Show success message
-                    alert('Successfully enrolled in the course!');
+                    // No alert shown on success
                 } else if (response.status === 'already_enrolled') {
                     alert('You are already enrolled in this course!');
                 }

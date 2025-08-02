@@ -61,6 +61,9 @@ class Application(models.Model):
     contact_phone2 = PhoneNumberField(
         help_text='Application contact phone 2', default='+923029677678'
     )
+    whatsapp_number = PhoneNumberField(
+        help_text='WhatsApp number for course inquiries', default='+923029677678'
+    )
 
     address = models.CharField(
         max_length=255, help_text='office address', default='123 Main St, Abbotabad, KPK Pakistan'

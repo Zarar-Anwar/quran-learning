@@ -18,81 +18,86 @@
 </section>
 
 <!-- My Courses Section -->
-<section class="my-courses-section sec-pad">
+<section class="courses-two sec-pad" style="background-image:url('{% static 'assets/images/background/courses-two_bg.png' %}')">
     <div class="auto-container">
-        <div class="row">
-            <div class="col-lg-12">
-                {% if enrolled_courses %}
-                    <div class="courses-grid">
-                        <div class="row">
-                            {% for enrollment in enrolled_courses %}
-                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                                    <div class="course-card enrolled-course-card">
-                                        <div class="course-image">
-                                            <img src="{{ enrollment.course.image.url }}" alt="{{ enrollment.course.title }}" class="img-fluid">
-                                            <div class="enrollment-badge">
-                                                <span class="badge badge-success">
-                                                    <i class="fas fa-check-circle"></i> Enrolled
-                                                </span>
-                                            </div>
+        <div class="row clearfix">
+            {% if enrolled_courses %}
+                {% for enrollment in enrolled_courses %}
+                    <div class="course-block_two col-lg-4 col-md-6 col-sm-12">
+                        <div class="course-block_two-inner wow fadeInLeft animated"
+                             data-wow-delay="0ms" data-wow-duration="1000ms"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 0ms; animation-name: fadeInLeft;">
+
+                            <div class="course-block_two-image ratio ratio-16x9">
+                                <a href="{% url 'website:courses-details' enrollment.course.id %}">
+                                    <img src="{{ enrollment.course.image.url }}" alt="{{ enrollment.course.title }}"
+                                         class="img-fluid w-100 h-100 object-fit-cover">
+                                </a>
+                                <!-- Enrollment Badge -->
+                                <div class="enrollment-badge">
+                                    <span class="badge badge-success">
+                                        <i class="fas fa-check-circle"></i> Enrolled
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="course-block_two-content">
+                                <div class="course-block_two-icon">
+                                    <img src="{% static 'assets/images/icons/course-block_two.png' %}" alt="">
+                                </div>
+
+                                <a href="{% url 'website:courses-details' enrollment.course.id %}" class="course-block_two-study">Continue Learning</a>
+
+                                <h4 class="course-block_two-heading">
+                                    <a href="{% url 'website:courses-details' enrollment.course.id %}">{{ enrollment.course.title }}</a>
+                                </h4>
+
+                                <ul class="course-block_two-list d-flex justify-content-between flex-wrap align-items-center">
+                                    <li><span>{{ enrollment.course.lessons_count }}</span> lessons</li>
+                                    <li><span>{{ enrollment.course.duration_weeks }}</span> weeks</li>
+                                    <li><span>{{ enrollment.course.enrollment_set.count }}</span> enroll</li>
+                                </ul>
+
+                                <div class="course-block_two-lower d-flex justify-content-between flex-wrap">
+                                    <div class="course-block_two-author">
+                                        <div class="course-block_two-author_image">
+                                            <img src="{{ enrollment.course.instructor.image.url }}"
+                                                 alt="{{ enrollment.course.instructor.name }}">
                                         </div>
-                                        
-                                        <div class="course-content">
-                                            <div class="course-instructor">
-                                                <img src="{{ enrollment.course.instructor.image.url }}" 
-                                                     alt="{{ enrollment.course.instructor.name }}" 
-                                                     class="instructor-avatar">
-                                                <span>{{ enrollment.course.instructor.name }}</span>
-                                            </div>
-                                            
-                                            <h4 class="course-title">
-                                                <a href="{% url 'website:courses-details' enrollment.course.id %}">
-                                                    {{ enrollment.course.title }}
-                                                </a>
-                                            </h4>
-                                            
-                                            <div class="course-meta">
-                                                <span><i class="fas fa-clock"></i> {{ enrollment.course.duration_weeks }} weeks</span>
-                                                <span><i class="fas fa-book"></i> {{ enrollment.course.lessons_count }} lessons</span>
-                                                <span><i class="fas fa-calendar"></i> Enrolled: {{ enrollment.enrolled_on|date:"M d, Y" }}</span>
-                                            </div>
-                                            
-                                            <div class="course-price">
-                                                <span class="price">${{ enrollment.course.price }}</span>
-                                            </div>
-                                            
-                                            {% if enrollment.is_trial %}
-                                                <div class="trial-info">
-                                                    <div class="alert alert-info">
-                                                        <i class="fas fa-info-circle"></i>
-                                                        <strong>Trial Period</strong>
-                                                        <p>Trial expires in {{ enrollment.course.trial_days }} days</p>
-                                                        {% if enrollment.trial_expired %}
-                                                            <span class="text-danger">Trial expired</span>
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
+                                        <strong>{{ enrollment.course.instructor.name }}</strong>
+                                        {{ enrollment.course.instructor.title }}
+                                    </div>
+
+                                    <div class="course-block_two-price">${{ enrollment.course.price }} <span>course fee</span></div>
+                                </div>
+
+                                <!-- Trial Info -->
+                                {% if enrollment.is_trial %}
+                                    <div class="trial-info">
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle"></i>
+                                            <strong>Trial Period</strong>
+                                            <p>Trial expires in {{ enrollment.course.trial_days }} days</p>
+                                            {% if enrollment.trial_expired %}
+                                                <span class="text-danger">Trial expired</span>
                                             {% endif %}
-                                            
-                                            <div class="course-actions">
-                                                <a href="{% url 'website:courses-details' enrollment.course.id %}" 
-                                                   class="btn btn-primary btn-sm">
-                                                    <i class="fas fa-play"></i> Continue Learning
-                                                </a>
-                                                
-                                                <!-- WhatsApp Contact Button -->
-                                                <a href="https://wa.me/+1234567890?text=Hi! I have a question about my enrolled course: {{ enrollment.course.title }}. Can you help me?" 
-                                                   class="btn btn-success btn-sm whatsapp-btn" target="_blank">
-                                                    <i class="fab fa-whatsapp"></i> Contact Supervisor
-                                                </a>
-                                            </div>
                                         </div>
                                     </div>
+                                {% endif %}
+
+                                <!-- WhatsApp Contact Button -->
+                                <div class="whatsapp-contact">
+                                    <a href="https://wa.me/{{ app.whatsapp_number }}?text=Hi! I have a question about my enrolled course: {{ enrollment.course.title }}. Can you help me?" 
+                                       class="btn btn-success btn-sm whatsapp-btn" target="_blank">
+                                        <i class="fab fa-whatsapp"></i> Contact Supervisor
+                                    </a>
                                 </div>
-                            {% endfor %}
+                            </div>
                         </div>
                     </div>
-                {% else %}
+                {% endfor %}
+            {% else %}
+                <div class="col-lg-12">
                     <div class="no-courses-section text-center">
                         <div class="no-courses-icon">
                             <i class="fas fa-graduation-cap fa-4x text-muted"></i>
@@ -103,8 +108,8 @@
                             <i class="fas fa-search"></i> Browse Courses
                         </a>
                     </div>
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 </section>
@@ -121,7 +126,7 @@
                     </div>
                     <h3>Need Help with Your Courses?</h3>
                     <p class="text-muted">Our course supervisors are here to help you with any questions about your enrolled courses.</p>
-                    <a href="https://wa.me/+1234567890?text=Hi! I need help with my enrolled courses. Can you assist me?" 
+                    <a href="https://wa.me/{{ app.whatsapp_number }}?text=Hi! I need help with my enrolled courses. Can you assist me?" 
                        class="btn btn-success btn-lg whatsapp-btn" target="_blank">
                         <i class="fab fa-whatsapp"></i> Chat with Course Supervisor
                     </a>
@@ -136,141 +141,120 @@
 
 {% block css %}
 <style>
-.enrolled-course-card {
-    border: 1px solid #e9ecef;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.enrolled-course-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-}
-
-.course-image {
-    position: relative;
-    height: 200px;
-    overflow: hidden;
-}
-
-.course-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
+/* Enrollment Badge */
 .enrollment-badge {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
 }
 
-.course-content {
-    padding: 20px;
-}
-
-.course-instructor {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.instructor-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.course-title {
-    font-size: 18px;
+.enrollment-badge .badge {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-size: 12px;
     font-weight: 600;
-    margin-bottom: 10px;
+    box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
 }
 
-.course-title a {
-    color: #333;
-    text-decoration: none;
-}
-
-.course-title a:hover {
-    color: #007bff;
-}
-
-.course-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 15px;
-    font-size: 14px;
-    color: #666;
-}
-
-.course-meta span {
-    display: flex;
-    align-items: center;
-}
-
-.course-meta i {
+.enrollment-badge i {
     margin-right: 5px;
 }
 
-.course-price {
-    margin-bottom: 15px;
-}
-
-.price {
-    font-size: 20px;
-    font-weight: 700;
-    color: #007bff;
-}
-
+/* Trial Info */
 .trial-info {
-    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0 20px 20px;
 }
 
-.course-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+.trial-info .alert {
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    margin-bottom: 0;
+    border: none;
+}
+
+.trial-info .alert i {
+    margin-right: 6px;
+}
+
+.trial-info .alert strong {
+    font-size: 13px;
+}
+
+.trial-info .alert p {
+    margin: 4px 0 0 0;
+    font-size: 11px;
+}
+
+/* WhatsApp Contact */
+.whatsapp-contact {
+    padding: 0 20px 20px;
+    margin-top: 10px;
 }
 
 .whatsapp-btn {
     background-color: #25d366;
     border-color: #25d366;
+    width: 100%;
+    font-size: 13px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .whatsapp-btn:hover {
     background-color: #128c7e;
     border-color: #128c7e;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
 }
 
+.whatsapp-btn i {
+    margin-right: 6px;
+}
+
+/* No Courses Section */
 .no-courses-section {
     padding: 60px 0;
 }
 
+.no-courses-icon {
+    margin-bottom: 20px;
+}
+
+/* Contact Card */
 .contact-card {
     background: white;
     padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
 }
 
 .contact-icon {
     margin-bottom: 20px;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
-    .course-actions {
-        flex-direction: column;
+    .enrollment-badge {
+        top: 10px;
+        right: 10px;
     }
     
-    .course-meta {
-        flex-direction: column;
-        gap: 5px;
+    .enrollment-badge .badge {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    
+    .trial-info,
+    .whatsapp-contact {
+        padding-left: 15px;
+        padding-right: 15px;
     }
 }
 </style>
