@@ -1,12 +1,17 @@
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, FormView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 from src.core.filters import VideoFilter
 from src.core.forms import ContactMessageForm
 from src.core.models import Service, GalleryImage, Testimonial, Video
 from src.services.courses.models import Course, Instructor
+from .forms import UserProfileForm, ChangePasswordForm
 
 
 # Create your views here.
@@ -82,3 +87,50 @@ class VideoListView(ListView):
 
 class ScholarsView(TemplateView):
     template_name = "website/scholars.html"
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfileView(TemplateView):
+    template_name = "website/profile.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile_form'] = UserProfileForm(instance=self.request.user)
+        context['password_form'] = ChangePasswordForm()
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        if 'update_profile' in request.POST:
+            profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+            if profile_form.is_valid():
+                profile_form.save()
+                messages.success(request, 'Profile updated successfully!')
+                return redirect('website:profile')
+            else:
+                messages.error(request, 'Please correct the errors below.')
+                context = self.get_context_data()
+                context['profile_form'] = profile_form
+                return self.render_to_response(context)
+        
+        elif 'change_password' in request.POST:
+            password_form = ChangePasswordForm(request.POST)
+            if password_form.is_valid():
+                user = request.user
+                if user.check_password(password_form.cleaned_data['current_password']):
+                    user.set_password(password_form.cleaned_data['new_password1'])
+                    user.save()
+                    update_session_auth_hash(request, user)
+                    messages.success(request, 'Password changed successfully!')
+                    return redirect('website:profile')
+                else:
+                    messages.error(request, 'Current password is incorrect.')
+                    context = self.get_context_data()
+                    context['password_form'] = password_form
+                    return self.render_to_response(context)
+            else:
+                messages.error(request, 'Please correct the errors below.')
+                context = self.get_context_data()
+                context['password_form'] = password_form
+                return self.render_to_response(context)
+        
+        return redirect('website:profile')

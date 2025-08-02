@@ -12,11 +12,10 @@ class User(AbstractUser):
         upload_to='users/images/profiles/', null=True, blank=True, size=[250, 250], quality=75, force_format='PNG',
         help_text='size of logo must be 250*250 and format must be png image file', crop=['middle', 'center']
     )
-    phone_number = models.CharField(blank=True, max_length=20, null=True, unique=True)
-    country = models.CharField(blank=True, max_length=20, null=True, unique=True)
-    city = models.CharField(blank=True, max_length=20, null=True, unique=True)
-    message = models.TextField(blank=True, null=True, unique=True,
-                               )
+    phone_number = models.CharField(blank=True, max_length=20, null=True)
+    country = models.CharField(blank=True, max_length=20, null=True)
+    city = models.CharField(blank=True, max_length=20, null=True)
+    message = models.TextField(blank=True, null=True)
 
     REQUIRED_FIELDS = ["username"]
     USERNAME_FIELD = "email"
