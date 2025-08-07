@@ -132,3 +132,65 @@ dmypy.json
 migrations/
 /migrations
 media/
+
+# Server configuration files
+nginx*.conf
+*.service
+start-server.sh
+deploy-https.sh
+
+# Environment and configuration files
+.env
+.env.local
+.env.production
+.env.staging
+
+# Database files
+*.sqlite3
+*.db
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# SSL certificates
+*.pem
+*.key
+*.crt
+*.csr
+
+# Backup files
+*.backup
+*.bak
+*.old
+
+# Cache directories
+.cache/
+__pycache__/
+*.pyc
+
+# Virtual environment
+myprojectenv/
+venv/
+env/

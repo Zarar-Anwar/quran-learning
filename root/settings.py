@@ -18,7 +18,15 @@ SITE_ID = int(env('SITE_ID'))
 DOMAIN = env('DOMAIN')
 PROTOCOL = env('PROTOCOL')
 BASE_URL = f"{PROTOCOL}://{DOMAIN}"
-ALLOWED_HOSTS = str(env('ALLOWED_HOSTS')).split(',')
+ALLOWED_HOSTS = [host.strip() for host in str(env('ALLOWED_HOSTS')).split(',') if host.strip()]
+# Add additional hosts for development and production
+ALLOWED_HOSTS.extend([
+    '3.6.185.214',
+    'learnquranonlinee.com',
+    'www.learnquranonlinee.com',
+    'localhost',
+    '127.0.0.1'
+])
 CSRF_TRUSTED_ORIGINS = [f'{PROTOCOL}://{host}' for host in ALLOWED_HOSTS]
 LOGOUT_REDIRECT_URL = '/accounts/cross-auth/'
 LOGIN_REDIRECT_URL = '/accounts/cross-auth/'
