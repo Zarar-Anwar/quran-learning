@@ -43,8 +43,13 @@
                                     <!-- Author -->
                                     <div class="course-detail_author">
                                         <div class="course-detail_author-image">
-                                            <img src="{{ course.instructor.image.url }}"
-                                                 alt="{{ course.instructor.name }}">
+                                            {% if course.instructor.image %}
+                                                <img src="{{ course.instructor.image.url }}"
+                                                     alt="{{ course.instructor.name }}">
+                                            {% else %}
+                                                <img src="{% static 'assets/images/default-avatar.png' %}"
+                                                     alt="{{ course.instructor.name }}">
+                                            {% endif %}
                                         </div>
                                         {{ course.instructor.name }}
                                         <span>{{ course.instructor.title }}</span>
@@ -130,8 +135,13 @@
                                                     <div class="course-author_box">
                                                         <div class="course-author_box-inner">
                                                             <div class="course-author_box-image">
-                                                                <img src="{{ course.instructor.image.url }}"
-                                                                     alt="{{ course.instructor.name }}">
+                                                                {% if course.instructor.image %}
+                                                                    <img src="{{ course.instructor.image.url }}"
+                                                                         alt="{{ course.instructor.name }}">
+                                                                {% else %}
+                                                                    <img src="{% static 'assets/images/default-avatar.png' %}"
+                                                                         alt="{{ course.instructor.name }}">
+                                                                {% endif %}
                                                             </div>
                                                             <h5 class="course-author_box-heading">{{ course.instructor.name }}<span>{{ course.instructor.title }}</span>
                                                             </h5>

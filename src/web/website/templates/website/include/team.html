@@ -30,9 +30,11 @@
                              data-wow-duration="1000ms"
                              style="visibility: hidden; animation-duration: 1000ms; animation-delay: 0ms; animation-name: none;">
                             <div class="scholar-block_one-image">
-                                <img
-                                        src="{{ instructor.image.url }}"
-                                        alt="">
+                                {% if instructor.image %}
+                                    <img src="{{ instructor.image.url }}" alt="{{ instructor.name }}">
+                                {% else %}
+                                    <img src="{% static 'assets/images/default-avatar.png' %}" alt="{{ instructor.name }}">
+                                {% endif %}
                             </div>
                             <div class="scholar-block_one-content">
                                 <h4 class="scholar-block_one-heading" style="color: var(--main-color);">{{ instructor.name }}</h4>

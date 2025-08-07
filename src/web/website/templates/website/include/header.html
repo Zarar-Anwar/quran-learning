@@ -67,7 +67,21 @@
                                         <ul>
                                             <li><a href="{% url 'website:profile' %}">Profile</a></li>
                                             <li><a href="{% url 'website:my_courses' %}">My Courses</a></li>
-                                            <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                                            <li><a href="{% url 'website:unified_logout' %}">Logout</a></li>
+                                        </ul>
+                                        <div class="dropdown-btn"><span class="fa fa-angle-down"></span></div>
+                                    </li>
+                                    {% elif request.session.instructor_id %}
+                                    <li class="dropdown user-menu" >
+                                        <a href="#" class="text-warning " >{{ request.session.instructor_name }}
+                                        <i class="fa fa-home-lg"></i>
+                                        </a>
+                                        <ul>
+                                            <li><a href="{% url 'courses:instructor_dashboard' %}">Dashboard</a></li>
+                                            <li><a href="{% url 'courses:instructor_courses' %}">My Courses</a></li>
+                                            <li><a href="{% url 'courses:instructor_students' %}">My Students</a></li>
+                                            <li><a href="{% url 'courses:instructor_profile' %}">Profile</a></li>
+                                            <li><a href="{% url 'courses:instructor_logout' %}">Logout</a></li>
                                         </ul>
                                         <div class="dropdown-btn"><span class="fa fa-angle-down"></span></div>
                                     </li>
@@ -83,11 +97,10 @@
                     <div class="outer-box d-flex align-items-center flex-wrap">
 
                         <!-- User Box -->
-                        {% if user.is_authenticated %}
-
+                        {% if user.is_authenticated or request.session.instructor_id %}
+                         
                         {% else %}
-                            <a class="user-box theme-btn" href="{% url 'account_login' %}">
-
+                            <a class="user-box theme-btn" href="{% url 'website:unified_login' %}">
                                 <span class="fa-regular fa-user fa-fw"></span>
                             </a>
                         {% endif %}
@@ -95,16 +108,15 @@
 
                         <!-- Button Box -->
                         <div class="header_button-box">
-                            {% if user.is_authenticated %}
-
-
+                            {% if user.is_authenticated or request.session.instructor_id %}
+                               
                             {% else %}
                                 <!-- Join Button -->
                                 <a href="{% url 'account_signup' %}" class="theme-btn btn-style-four">
-            <span class="btn-wrap">
-                <span class="text-one">Quick Join Now</span>
-                <span class="text-two">Quick Join Now</span>
-            </span>
+                                    <span class="btn-wrap">
+                                        <span class="text-one">Quick Join Now</span>
+                                        <span class="text-two">Quick Join Now</span>
+                                    </span>
                                 </a>
                             {% endif %}
                         </div>

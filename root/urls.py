@@ -7,6 +7,7 @@ from root.settings import ENVIRONMENT, MEDIA_ROOT, STATIC_ROOT
 from src.core.handlers import (
     handler404, handler500
 )
+from src.services.courses.admin import courses_admin_site
 urlpatterns = []
 
 
@@ -25,7 +26,9 @@ urlpatterns += [
 """ EXTERNAL REQUIRED APPS ----------------------------------------------------------------------------------------- """
 urlpatterns += [
     path('admin/', admin.site.urls),
+    path('courses-admin/', courses_admin_site.urls),
     path('accounts/', include('allauth.urls')),
+    path('courses/', include('src.services.courses.urls', namespace='courses')),
 ]
 
 

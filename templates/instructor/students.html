@@ -1,0 +1,399 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %}My Students - Instructor Dashboard{% endblock %}
+
+{% block css %}
+<style>
+    .instructor-students {
+        background: #f8f9fa;
+        min-height: 100vh;
+        padding: 120px 20px 20px 20px;
+    }
+    
+    .page-header {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .header-title h1 {
+        color: #333;
+        margin-bottom: 5px;
+        font-size: 1.8rem;
+    }
+    
+    .header-title p {
+        color: #666;
+        margin: 0;
+    }
+    
+    .back-btn {
+        background: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .back-btn:hover {
+        background: #45a049;
+        color: white;
+        text-decoration: none;
+    }
+    
+    .stats-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #4CAF50;
+        margin-bottom: 5px;
+    }
+    
+    .stat-label {
+        color: #666;
+        font-size: 0.9rem;
+    }
+    
+    .filters-section {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .filters-row {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    .filter-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .filter-label {
+        font-weight: 500;
+        color: #333;
+    }
+    
+    .filter-select {
+        padding: 8px 12px;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        background: white;
+        color: #333;
+    }
+    
+    .filter-select:focus {
+        outline: none;
+        border-color: #4CAF50;
+    }
+    
+    .search-box {
+        flex: 1;
+        min-width: 200px;
+    }
+    
+    .search-input {
+        width: 100%;
+        padding: 8px 12px;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        background: white;
+        color: #333;
+    }
+    
+    .search-input:focus {
+        outline: none;
+        border-color: #4CAF50;
+    }
+    
+    .students-table {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .table-header {
+        background: #f8f9fa;
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .table-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+        margin: 0;
+    }
+    
+    .students-list {
+        max-height: 600px;
+        overflow-y: auto;
+    }
+    
+    .student-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        transition: background-color 0.3s ease;
+    }
+    
+    .student-item:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .student-item:last-child {
+        border-bottom: none;
+    }
+    
+    .student-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .student-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #4CAF50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+    
+    .student-details h4 {
+        margin: 0 0 5px 0;
+        color: #333;
+        font-size: 1.1rem;
+    }
+    
+    .student-details p {
+        margin: 0;
+        color: #666;
+        font-size: 0.9rem;
+    }
+    
+    .enrollment-info {
+        text-align: right;
+    }
+    
+    .enrollment-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin-bottom: 5px;
+        display: inline-block;
+    }
+    
+    .enrollment-badge.trial {
+        background: #fff3cd;
+        color: #856404;
+    }
+    
+    .enrollment-badge.full {
+        background: #d4edda;
+        color: #155724;
+    }
+    
+    .enrollment-date {
+        color: #666;
+        font-size: 0.8rem;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+    }
+    
+    .empty-icon {
+        font-size: 4rem;
+        color: #ccc;
+        margin-bottom: 20px;
+    }
+    
+    @media (max-width: 768px) {
+        .page-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 20px;
+        }
+        
+        .filters-row {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        
+        .student-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .enrollment-info {
+            text-align: left;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="instructor-students">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="header-title">
+            <h1>👥 My Students</h1>
+            <p>Track and manage all students enrolled in your courses</p>
+        </div>
+        <a href="{% url 'courses:instructor_dashboard' %}" class="back-btn">← Back to Dashboard</a>
+    </div>
+    
+    <!-- Statistics Cards -->
+    <div class="stats-cards">
+        <div class="stat-card">
+            <div class="stat-number">{{ total_students }}</div>
+            <div class="stat-label">Total Students</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ full_students }}</div>
+            <div class="stat-label">Full Enrollments</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ trial_students }}</div>
+            <div class="stat-label">Trial Students</div>
+        </div>
+    </div>
+    
+    <!-- Filters Section -->
+    <div class="filters-section">
+        <form method="get" class="filters-row">
+            <div class="filter-group">
+                <label class="filter-label">Status:</label>
+                <select name="trial" class="filter-select">
+                    <option value="">All Students</option>
+                    <option value="false" {% if request.GET.trial == 'false' %}selected{% endif %}>Full Enrollments</option>
+                    <option value="true" {% if request.GET.trial == 'true' %}selected{% endif %}>Trial Students</option>
+                </select>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" name="search" placeholder="Search students..." 
+                       value="{{ request.GET.search }}" class="search-input">
+            </div>
+            
+            <button type="submit" class="back-btn">🔍 Search</button>
+        </form>
+    </div>
+    
+    <!-- Students Table -->
+    <div class="students-table">
+        <div class="table-header">
+            <h3 class="table-title">Student List</h3>
+        </div>
+        
+        <div class="students-list">
+            {% if enrollments %}
+                {% for enrollment in enrollments %}
+                <div class="student-item">
+                    <div class="student-info">
+                        <div class="student-avatar">
+                            {{ enrollment.user.username|first|upper }}
+                        </div>
+                        <div class="student-details">
+                            <h4>{{ enrollment.user.username }}</h4>
+                            <p>{{ enrollment.user.email }}</p>
+                            <p>Course: {{ enrollment.course.title }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="enrollment-info">
+                        <span class="enrollment-badge {% if enrollment.is_trial %}trial{% else %}full{% endif %}">
+                            {% if enrollment.is_trial %}Trial{% else %}Full{% endif %}
+                        </span>
+                        <div class="enrollment-date">
+                            Enrolled: {{ enrollment.enrolled_on|date:"M d, Y" }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">👥</div>
+                    <h3>No Students Found</h3>
+                    <p>No students match your current filters.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate stat numbers
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(stat => {
+        const finalValue = parseInt(stat.textContent);
+        if (!isNaN(finalValue)) {
+            let currentValue = 0;
+            const increment = finalValue / 50;
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= finalValue) {
+                    currentValue = finalValue;
+                    clearInterval(timer);
+                }
+                stat.textContent = Math.floor(currentValue);
+            }, 30);
+        }
+    });
+    
+    // Add hover effects to student items
+    const studentItems = document.querySelectorAll('.student-item');
+    studentItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(5px)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+        });
+    });
+});
+</script>
+{% endblock %}

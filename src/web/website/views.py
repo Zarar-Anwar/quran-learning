@@ -4,17 +4,19 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, FormView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.utils import timezone
-
+from django.db.models import Count, Q
+from django.contrib.auth.hashers import check_password
+from .forms import UserProfileForm, ChangePasswordForm
+from src.services.users.models import User
+from src.services.courses.models import Course, Enrollment, Instructor
+from src.core.models import Service, GalleryImage, Testimonial, Application, Video
 from src.core.filters import VideoFilter
 from src.core.forms import ContactMessageForm
-from src.core.models import Service, GalleryImage, Testimonial, Video
-from src.services.courses.models import Course, Instructor, Enrollment
-from .forms import UserProfileForm, ChangePasswordForm
 
 
 # Create your views here.
@@ -179,3 +181,79 @@ def my_courses(request):
     return render(request, 'website/my_courses.html', {
         'enrolled_courses': enrolled_courses
     })
+
+def unified_login(request):
+    """Unified login view for both students and instructors"""
+    # Redirect if user is already logged in
+    if request.user.is_authenticated:
+        return redirect('website:home')
+    
+    # Redirect if instructor is already logged in
+    if 'instructor_id' in request.session:
+        return redirect('courses:instructor_dashboard')
+    
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user_type = request.POST.get('user_type', 'student')
+        
+        if user_type == 'instructor':
+            # Try instructor login
+            try:
+                instructor = Instructor.objects.get(email=email, is_active=True)
+                if instructor.check_password(password):
+                    # Update last login
+                    instructor.last_login = timezone.now()
+                    instructor.save()
+                    
+                    # Store instructor in session
+                    request.session['instructor_id'] = instructor.id
+                    request.session['instructor_name'] = instructor.name
+                    request.session['user_type'] = 'instructor'
+                    
+                    messages.success(request, f'Welcome back, {instructor.name}!')
+                    return redirect('courses:instructor_dashboard')
+                else:
+                    messages.error(request, 'Invalid password.')
+            except Instructor.DoesNotExist:
+                messages.error(request, 'Instructor not found or account is not active.')
+        else:
+            # Try student login - first try with email as username, then try to find user by email
+            user = authenticate(request, username=email, password=password)
+            if user is None:
+                # Try to find user by email
+                try:
+                    user_obj = User.objects.get(email=email)
+                    user = authenticate(request, username=user_obj.username, password=password)
+                except User.DoesNotExist:
+                    user = None
+            
+            if user is not None:
+                login(request, user)
+                messages.success(request, f'Welcome back, {user.username}!')
+                return redirect('website:home')
+            else:
+                messages.error(request, 'Invalid credentials.')
+    
+    return render(request, 'website/unified_login.html')
+
+
+def unified_logout(request):
+    """Unified logout view"""
+    user_type = request.session.get('user_type')
+    
+    if user_type == 'instructor':
+        # Clear instructor session
+        if 'instructor_id' in request.session:
+            del request.session['instructor_id']
+        if 'instructor_name' in request.session:
+            del request.session['instructor_name']
+        if 'user_type' in request.session:
+            del request.session['user_type']
+        messages.success(request, 'You have been logged out successfully.')
+        return redirect('website:unified_login')
+    else:
+        # Student logout
+        logout(request)
+        messages.success(request, 'You have been logged out successfully.')
+        return redirect('website:home')

@@ -16,21 +16,15 @@
                             <!-- Footer Column -->
                             <div class="footer-column col-lg-6 col-md-6 col-sm-12">
                                 <div class="footer-widget logo-widget">
-                                    <div class="footer-logo"><a href="index.html"><img
+                                    <div class="footer-logo"><a href="{% url 'website:home' %}"><img
                                             src="{% static 'assets/images/footer-logo.svg' %}" alt="" title=""></a>
                                     </div>
                                     <!-- Footer List -->
                                     <div class="footer_list">
-                                        <li>58 Howard Street #2 cairo. <br> CA 941</li>
-                                        <li>(+88)311-2121101</li>
+                                        <li>{{ app.address }}</li>
+                                        <li>{{ app.contact_phone1 }}</li>
                                     </div>
-                                    <!-- Social Box -->
-                                    <div class="footer_socials">
-                                        <a href="https://facebook.com/"><i class="fa-brands fa-facebook-f"></i></a>
-                                        <a href="https://twitter.com/"><i class="fa-brands fa-twitter"></i></a>
-                                        <a href="https://youtube.com/"><i class="fa-brands fa-youtube"></i></a>
-                                        <a href="https://instagram.com/"><i class="fa-brands fa-instagram"></i></a>
-                                    </div>
+                                    
                                 </div>
                             </div>
 

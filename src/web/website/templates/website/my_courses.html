@@ -61,8 +61,13 @@
                                 <div class="course-block_two-lower d-flex justify-content-between flex-wrap">
                                     <div class="course-block_two-author">
                                         <div class="course-block_two-author_image">
-                                            <img src="{{ enrollment.course.instructor.image.url }}"
-                                                 alt="{{ enrollment.course.instructor.name }}">
+                                            {% if enrollment.course.instructor.image %}
+                                                <img src="{{ enrollment.course.instructor.image.url }}"
+                                                     alt="{{ enrollment.course.instructor.name }}">
+                                            {% else %}
+                                                <img src="{% static 'assets/images/default-avatar.png' %}"
+                                                     alt="{{ enrollment.course.instructor.name }}">
+                                            {% endif %}
                                         </div>
                                         <strong>{{ enrollment.course.instructor.name }}</strong>
                                         {{ enrollment.course.instructor.title }}

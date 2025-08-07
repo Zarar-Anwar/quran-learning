@@ -35,8 +35,11 @@
             <div class="course-block_two-lower d-flex justify-content-between flex-wrap">
                 <div class="course-block_two-author">
                     <div class="course-block_two-author_image">
-                        <img src="{{ course.instructor.image.url }}"
-                             alt="{{ course.instructor.name }}">
+                        {% if course.instructor.image %}
+                            <img src="{{ course.instructor.image.url }}" alt="{{ course.instructor.name }}">
+                        {% else %}
+                            <img src="{% static 'assets/images/default-avatar.png' %}" alt="{{ course.instructor.name }}">
+                        {% endif %}
                     </div>
                     <strong>{{ course.instructor.name }}</strong>
                     {{ course.instructor.title }}
