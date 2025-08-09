@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://learnquranonlinee.com/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /courses-admin/
+Disallow: /accounts/
+Disallow: /api/
+Disallow: /__reload__/
+
+# Allow important pages
+Allow: /courses/
+Allow: /about/
+Allow: /contact/
+Allow: /services/
+Allow: /videos/
+
+# Crawl delay (optional)
+Crawl-delay: 1

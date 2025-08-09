@@ -97,6 +97,10 @@ MIDDLEWARE = [
     # YOUR MIDDLEWARES
 ]
 
+# Add development-only middleware
+if DEBUG:
+    MIDDLEWARE.append('django_browser_reload.middleware.BrowserReloadMiddleware')
+
 AUTHENTICATION_BACKENDS = [
     # DJANGO BACKENDS
     'django.contrib.auth.backends.ModelBackend',

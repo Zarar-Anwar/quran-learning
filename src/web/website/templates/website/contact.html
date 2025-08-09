@@ -2,16 +2,67 @@
 
 {% load static %}
 
+{% block meta_title %}Contact Us - Learn Quran Online Islamic Academy{% endblock %}
+{% block meta_description %}Get in touch with our Quran learning experts. Contact us for course inquiries, enrollment support, or any questions about our Islamic education programs.{% endblock %}
+{% block meta_keywords %}contact learn quran online, quran academy contact, islamic education support, quran learning help, muslim education contact{% endblock %}
+
+{% block og_type %}website{% endblock %}
+{% block og_title %}Contact Us - Learn Quran Online Islamic Academy{% endblock %}
+{% block og_description %}Get in touch with our Quran learning experts. Contact us for course inquiries, enrollment support, or any questions about our Islamic education programs.{% endblock %}
+
+{% block twitter_title %}Contact Us - Learn Quran Online Islamic Academy{% endblock %}
+{% block twitter_description %}Get in touch with our Quran learning experts. Contact us for course inquiries, enrollment support, or any questions about our Islamic education programs.{% endblock %}
+
+{% block schema_type %}ContactPage{% endblock %}
+
+{% block page_title %}Contact Us{% endblock %}
+
 {% block title %}
     Contact
 {% endblock %}
 
 {% block content %}
 
+    <!-- Structured Data for Contact Page -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact Learn Quran Online",
+        "description": "Contact our Quran learning experts for course inquiries and support",
+        "url": "https://learnquranonlinee.com/contact/",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "Learn Quran Online",
+            "url": "https://learnquranonlinee.com",
+            "contactPoint": [
+                {
+                    "@type": "ContactPoint",
+                    "contactType": "customer service",
+                    "telephone": "{{ app.contact_phone1 }}",
+                    "email": "{{ app.contact_email1 }}",
+                    "availableLanguage": ["English", "Arabic"]
+                },
+                {
+                    "@type": "ContactPoint",
+                    "contactType": "technical support",
+                    "telephone": "{{ app.contact_phone1 }}",
+                    "email": "{{ app.contact_email1 }}"
+                }
+            ],
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "{{ app.address }}",
+                "addressCountry": "US"
+            }
+        }
+    }
+    </script>
+
     <section class="page-title"
              style="background-image:url(' {% static "assets/images/background/page-title.jpg" %}');margin-top:100px">
         <div class="auto-container">
-            <h2>Contact</h2>
+            <h1>Contact Our Islamic Academy</h1>
             <ul class="bread-crumb clearfix">
                 <li><a href="{% url 'website:home' %}">Home</a></li>
                 <li>Contact</li>
@@ -27,7 +78,7 @@
                     <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
                         <div class="contact-info_outer">
                             <div class="contact-info_icon fa-solid fa-location-dot fa-fw"></div>
-                            <h4 class="contact-info_heading">Our Address</h4>
+                            <h3 class="contact-info_heading">Our Address</h3>
                             <div class="contact-info_text">{{ app.address }}</div>
                         </div>
                     </div>
@@ -36,8 +87,8 @@
                     <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
                         <div class="contact-info_outer">
                             <div class="contact-info_icon fa-solid fa-phone fa-fw"></div>
-                            <h4 class="contact-info_heading">Our Phone</h4>
-                            <div class="contact-info_text"> {{ app.contact_phone1 }}<span>Let’s Talk {{ app.contact_phone1 }}</span>
+                            <h3 class="contact-info_heading">Our Phone</h3>
+                            <div class="contact-info_text"> {{ app.contact_phone1 }}<span>Let's Talk {{ app.contact_phone1 }}</span>
                             </div>
                         </div>
                     </div>
@@ -46,7 +97,7 @@
                     <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
                         <div class="contact-info_outer">
                             <div class="contact-info_icon fa-solid fa-envelope fa-fw"></div>
-                            <h4 class="contact-info_heading">Email address</h4>
+                            <h3 class="contact-info_heading">Email Address</h3>
                             <div class="contact-info_text">{{ app.contact_email1 }} <br> {{ app.contact_email1 }}</div>
                         </div>
                     </div>
@@ -58,7 +109,7 @@
 
     <div class="contact-form_box">
         <div class="auto-container">
-            <h4>Feel free to write Islamic anytime</h4>
+            <h2>Feel free to write to us anytime</h2>
 
             <!-- Contact Form -->
             <div class="contact-form">
@@ -80,10 +131,10 @@
 
                     <div class="form-group">
                         <div class="button-box">
-                            <button type="submit" class="theme-btn btn-style-four">
+                            <button type="submit" class="theme-btn btn-style-four" aria-label="Send message">
                 <span class="btn-wrap">
-                    <span class="text-one">Post Comment</span>
-                    <span class="text-two">Post Comment</span>
+                    <span class="text-one">Send Message</span>
+                    <span class="text-two">Send Message</span>
                 </span>
                             </button>
                         </div>
@@ -100,7 +151,9 @@
     <section class="map-one">
         <div class="map-outer">
             <iframe class="map w-100"
-                    src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                    src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                    title="Our Location Map"
+                    aria-label="Interactive map showing our location"></iframe>
         </div>
     </section>
 

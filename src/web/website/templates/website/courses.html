@@ -2,18 +2,68 @@
 
 {% load static %}
 
+{% block meta_title %}Quran Learning Courses - Online Islamic Education Programs{% endblock %}
+{% block meta_description %}Explore our comprehensive Quran learning courses. From beginner to advanced levels, learn Quran recitation, Tajweed, Arabic language, and Islamic studies with expert instructors.{% endblock %}
+{% block meta_keywords %}quran courses, online quran learning, islamic education courses, tajweed courses, arabic learning, quran recitation classes, islamic studies, muslim education programs{% endblock %}
+
+{% block og_type %}website{% endblock %}
+{% block og_title %}Quran Learning Courses - Online Islamic Education Programs{% endblock %}
+{% block og_description %}Explore our comprehensive Quran learning courses. From beginner to advanced levels, learn Quran recitation, Tajweed, Arabic language, and Islamic studies.{% endblock %}
+
+{% block twitter_title %}Quran Learning Courses - Online Islamic Education Programs{% endblock %}
+{% block twitter_description %}Explore our comprehensive Quran learning courses. From beginner to advanced levels, learn Quran recitation, Tajweed, Arabic language, and Islamic studies.{% endblock %}
+
+{% block schema_type %}CollectionPage{% endblock %}
+
+{% block page_title %}Quran Learning Courses{% endblock %}
+
 {% block title %}
     Courses
 {% endblock %}
 
 {% block content %}
 
+    <!-- Structured Data for Courses Page -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Quran Learning Courses",
+        "description": "Comprehensive online Quran learning courses and Islamic education programs",
+        "url": "https://learnquranonlinee.com/courses/",
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+                {% for course in courses %}
+                {
+                    "@type": "ListItem",
+                    "position": {{ forloop.counter }},
+                    "item": {
+                        "@type": "Course",
+                        "name": "{{ course.title }}",
+                        "description": "{{ course.description|truncatewords:20 }}",
+                        "url": "https://learnquranonlinee.com/courses-details/{{ course.id }}/",
+                        "provider": {
+                            "@type": "Organization",
+                            "name": "Learn Quran Online"
+                        },
+                        "courseMode": "online",
+                        "educationalLevel": "{{ course.level|default:'All Levels' }}",
+                        "inLanguage": ["English", "Arabic"]
+                    }
+                }{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ]
+        }
+    }
+    </script>
+
     <section class="page-title"
              style="background-image:url(' {% static "assets/images/background/page-title.jpg" %}');margin-top:100px">
         <div class="auto-container">
-            <h2>Our Courses</h2>
+            <h1>Our Quran Learning Courses</h1>
             <ul class="bread-crumb clearfix">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="{% url 'website:home' %}">Home</a></li>
                 <li>Our Courses</li>
             </ul>
         </div>
@@ -27,7 +77,10 @@
                 {% for course in courses %}
                     {% include 'website/include/course.html' %}
                 {% empty %}
-                    <p class="text-danger">No courses available right now.</p>
+                    <div class="col-12 text-center">
+                        <h3>No courses available right now.</h3>
+                        <p>Please check back later for our latest Quran learning programs.</p>
+                    </div>
                 {% endfor %}
 
             </div>

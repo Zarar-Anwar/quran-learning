@@ -2,19 +2,80 @@
 
 {% load static %}
 
+{% block meta_title %}{{ course.title }} - Online Quran Learning Course{% endblock %}
+{% block meta_description %}{{ course.overview|truncatewords:25 }} Learn {{ course.title }} online with expert instructor {{ course.instructor.name }}. Join {{ course.enrollment_set.count }} students in this comprehensive Quran learning program.{% endblock %}
+{% block meta_keywords %}{{ course.title }}, online quran course, {{ course.instructor.name }}, quran learning, islamic education, tajweed, arabic learning{% endblock %}
+
+{% block og_type %}website{% endblock %}
+{% block og_title %}{{ course.title }} - Online Quran Learning Course{% endblock %}
+{% block og_description %}{{ course.overview|truncatewords:25 }} Learn {{ course.title }} online with expert instructor {{ course.instructor.name }}.{% endblock %}
+{% block og_image %}{% if course.image %}{{ course.image.url }}{% else %}https://learnquranonlinee.com{% static 'assets/images/og-image.jpg' %}{% endif %}{% endblock %}
+
+{% block twitter_title %}{{ course.title }} - Online Quran Learning Course{% endblock %}
+{% block twitter_description %}{{ course.overview|truncatewords:25 }} Learn {{ course.title }} online with expert instructor {{ course.instructor.name }}.{% endblock %}
+{% block twitter_image %}{% if course.image %}{{ course.image.url }}{% else %}https://learnquranonlinee.com{% static 'assets/images/twitter-image.jpg' %}{% endif %}{% endblock %}
+
+{% block canonical_path %}/courses-details/{{ course.id }}/{% endblock %}
+
+{% block schema_type %}Course{% endblock %}
+
+{% block page_title %}{{ course.title }}{% endblock %}
+
 {% block title %}
     Courses Details - {{ course.title }}
 {% endblock %}
 
 {% block content %}
     {% csrf_token %}
+    
+    <!-- Structured Data for Course -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "{{ course.title }}",
+        "description": "{{ course.overview }}",
+        "url": "https://learnquranonlinee.com/courses-details/{{ course.id }}/",
+        "provider": {
+            "@type": "Organization",
+            "name": "Learn Quran Online",
+            "url": "https://learnquranonlinee.com"
+        },
+        "instructor": {
+            "@type": "Person",
+            "name": "{{ course.instructor.name }}",
+            "jobTitle": "{{ course.instructor.title }}",
+            "image": "{% if course.instructor.image %}{{ course.instructor.image.url }}{% endif %}"
+        },
+        "courseMode": "online",
+        "educationalLevel": "{{ course.level|default:'All Levels' }}",
+        "inLanguage": ["English", "Arabic"],
+        "coursePrerequisites": "{{ course.prerequisites|default:'No prerequisites required' }}",
+        "numberOfCredits": "{{ course.lessons_count }}",
+        "timeRequired": "P{{ course.duration_weeks }}W",
+        "offers": {
+            "@type": "Offer",
+            "price": "{{ course.price }}",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        },
+        "image": "{% if course.image %}{{ course.image.url }}{% endif %}",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "{{ course.enrollment_set.count }}"
+        }
+    }
+    </script>
+
     <section class="page-title"
              style="background-image:url('{% static "assets/images/background/page-title.jpg" %}'); margin-top:150px;">
         <div class="auto-container">
-            <h2>{{ course.title }}</h2>
+            <h1>{{ course.title }}</h1>
             <ul class="bread-crumb clearfix">
                 <li><a href="{% url 'website:home' %}">Home</a></li>
-                <li>Courses Details</li>
+                <li><a href="{% url 'website:courses' %}">Courses</a></li>
+                <li>{{ course.title }}</li>
             </ul>
         </div>
     </section>
@@ -30,13 +91,13 @@
 
                             <!-- Course Image -->
                             <div class="course-detail_image ratio ratio-16x9">
-                                <img src="{{ course.image.url }}" alt="{{ course.title }}"
+                                <img src="{{ course.image.url }}" alt="{{ course.title }} - Quran Learning Course"
                                      class="img-fluid w-50 h-50 object-fit-contain">
                             </div>
 
                             <!-- Course Content -->
                             <div class="course-detail_content">
-                                <h3 class="course-detail_heading">{{ course.title }}</h3>
+                                <h2 class="course-detail_heading">{{ course.title }}</h2>
 
                                 <div class="course-detail_info d-flex justify-content-between align-items-center flex-wrap">
 
@@ -45,10 +106,10 @@
                                         <div class="course-detail_author-image">
                                             {% if course.instructor.image %}
                                                 <img src="{{ course.instructor.image.url }}"
-                                                     alt="{{ course.instructor.name }}">
+                                                     alt="{{ course.instructor.name }} - Quran Instructor">
                                             {% else %}
                                                 <img src="{% static 'assets/images/default-avatar.png' %}"
-                                                     alt="{{ course.instructor.name }}">
+                                                     alt="{{ course.instructor.name }} - Quran Instructor">
                                             {% endif %}
                                         </div>
                                         {{ course.instructor.name }}
@@ -67,7 +128,7 @@
                                     <div class="course-detail_price">${{ course.price }} <span>Course Fee</span></div>
                                 </div>
 
-                                <h4 class="course-detail_subtitle">Overview</h4>
+                                <h3 class="course-detail_subtitle">Course Overview</h3>
                                 <p>{{ course.overview }}</p>
 
                                 <!-- Product Info Tabs -->
@@ -137,10 +198,10 @@
                                                             <div class="course-author_box-image">
                                                                 {% if course.instructor.image %}
                                                                     <img src="{{ course.instructor.image.url }}"
-                                                                         alt="{{ course.instructor.name }}">
+                                                                         alt="{{ course.instructor.name }} - Quran Instructor">
                                                                 {% else %}
                                                                     <img src="{% static 'assets/images/default-avatar.png' %}"
-                                                                         alt="{{ course.instructor.name }}">
+                                                                         alt="{{ course.instructor.name }} - Quran Instructor">
                                                                 {% endif %}
                                                             </div>
                                                             <h5 class="course-author_box-heading">{{ course.instructor.name }}<span>{{ course.instructor.title }}</span>

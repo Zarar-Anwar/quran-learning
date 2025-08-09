@@ -8,8 +8,8 @@ from src.core.handlers import (
     handler404, handler500
 )
 from src.services.courses.admin import courses_admin_site
-urlpatterns = []
 
+urlpatterns = []
 
 """ HANDLERS ------------------------------------------------------------------------------------------------------- """
 handler404 = handler404

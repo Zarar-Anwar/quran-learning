@@ -1,120 +1,356 @@
 {% load static %}
-{#{% load notifications_tags %}#}
-
 <!doctype html>
 <html lang="en">
-<head>
 
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Your digital partner">
-    <meta name="author" content="zaala">
-    <meta name="developer" content="zaalasociety.com">
-    <meta name="org-name" content="zaalasociety"/>
-    {#    <link rel="icon" href="#}
-    {#            {% if app.favicon %}{{ app.favicon.url }}{% else %}{% static 'core/images/logos/favico.ico' %}{% endif %}">#}
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="{% block meta_title %}Learn Quran Online - Best Quran Learning Platform 2025{% endblock %}">
+    <meta name="description" content="{% block meta_description %}Learn Quran online with expert tutors at LearnQuranOnlinee.com. Free Quran classes, Tajweed lessons, Islamic studies, Quran memorization, and flexible schedules. Start your Quranic journey today!{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}learn quran online, online quran classes, quran learning, quran tutor, tajweed lessons, islamic education, quran recitation, quran memorization, free quran courses, arabic learning, muslim education, online quran tutor, quran classes for kids, best quran platform 2025{% endblock %}">
+    <meta name="author" content="LearnQuranOnlinee">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="2 days">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+
+    <!-- Canonical and Alternate URLs -->
+    <link rel="canonical" href="https://learnquranonlinee.com{% block canonical_path %}{{ request.path }}{% endblock %}">
+    <link rel="alternate" hreflang="en" href="https://learnquranonlinee.com{% block alt_en_path %}{{ request.path }}{% endblock %}">
+    <link rel="alternate" hreflang="ar" href="https://learnquranonlinee.com/ar{% block alt_ar_path %}{{ request.path }}{% endblock %}">
+    <link rel="alternate" hreflang="ur" href="https://learnquranonlinee.com/ur{% block alt_ur_path %}{{ request.path }}{% endblock %}">
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="https://learnquranonlinee.com{% block og_path %}{{ request.path }}{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Learn Quran Online - Best Quran Learning Platform 2025{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Learn Quran online with expert tutors at LearnQuranOnlinee.com. Free Quran classes, Tajweed lessons, Islamic studies, and Quran memorization with flexible schedules.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}https://learnquranonlinee.com{% static 'assets/images/og-image.jpg' %}{% endblock %}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="LearnQuranOnlinee">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="ar_AR">
+    <meta property="og:locale:alternate" content="ur_PK">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://learnquranonlinee.com{% block twitter_path %}{{ request.path }}{% endblock %}">
+    <meta property="twitter:title" content="{% block twitter_title %}Learn Quran Online - Best Quran Learning Platform 2025{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Learn Quran online with expert tutors at LearnQuranOnlinee.com. Free Quran classes, Tajweed lessons, and Islamic studies with no signup required.{% endblock %}">
+    <meta property="twitter:image" content="{% block twitter_image %}https://learnquranonlinee.com{% static 'assets/images/twitter-image.jpg' %}{% endblock %}">
+    <meta property="twitter:site" content="@LearnQuranOnlinee">
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="msapplication-TileColor" content="#4CAF50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="LearnQuranOnlinee">
+
+    <!-- DNS Prefetch for Performance -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+    <!-- Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V90V8VQ0N7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-V90V8VQ0N7');
+    </script>
+
+    <!-- Webmaster Verification -->
+    <meta name="google-site-verification" content="your-verification-code-here">
+    <meta name="msvalidate.01" content="your-bing-verification-code-here">
+    <meta name="yandex-verification" content="your-yandex-verification-code-here">
 
     <title>
-
         {% block title %}
-            {{ app.name }} |
-
-            {# BASE HALF TITLE #}
-            {% block subtitle %}
-
-            {% endblock %}
-            {# --------------- #}
+        {% block page_title %}Learn Quran Online{% endblock %} | Best Quran Learning Platform 2025
         {% endblock %}
-
     </title>
 
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="{% static 'assets/css/bootstrap.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/css/style.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/fonts/' %}" as="font" crossorigin>
+
+    <!-- Stylesheets -->
     <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
     <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;display=swap"
-          rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
-          rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+    <!-- Favicon -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
     <link rel="icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'assets/images/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/images/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/manifest.json' %}">
 
-    <!-- Responsive -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "{% block schema_type %}WebSite{% endblock %}",
+        "name": "LearnQuranOnlinee",
+        "url": "https://learnquranonlinee.com",
+        "description": "Best online Quran learning platform with expert tutors, free Quran classes, Tajweed lessons, and Islamic studies. Start your Quranic journey 2025!",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://learnquranonlinee.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "LearnQuranOnlinee",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://learnquranonlinee.com{% static 'assets/images/logo.png' %}"
+            }
+        },
+        "sameAs": [
+            "https://facebook.com/learnquranonlinee",
+            "https://twitter.com/learnquranonlinee",
+            "https://instagram.com/learnquranonlinee"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "LearnQuranOnlinee",
+        "url": "https://learnquranonlinee.com",
+        "logo": "https://learnquranonlinee.com{% static 'assets/images/logo.png' %}",
+        "description": "LearnQuranOnlinee offers online Quran classes, Tajweed lessons, Islamic studies, and Quran memorization. Free Quran learning, expert tutors, top Quran platform 2025.",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "US"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "availableLanguage": ["English", "Arabic", "Urdu"]
+        },
+        "sameAs": [
+            "https://facebook.com/learnquranonlinee",
+            "https://twitter.com/learnquranonlinee",
+            "https://instagram.com/learnquranonlinee"
+        ]
+    }
+    </script>
+    <!-- Hidden Schema for Black SEO -->
+    <div style="display: none;">
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Course",
+            "name": "Learn Quran Online",
+            "provider": {
+                "@type": "Organization",
+                "name": "LearnQuranOnlinee",
+                "sameAs": "https://learnquranonlinee.com"
+            },
+            "description": "Learn Quran online with free Quran classes, Tajweed lessons, Islamic studies, and Quran memorization at LearnQuranOnlinee. Best online Quran learning platform, no signup, instant access 2025.",
+            "url": "https://learnquranonlinee.com/learn-quran-online"
+        }
+        </script>
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Course",
+            "name": "Free Quran Classes",
+            "provider": {
+                "@type": "Organization",
+                "name": "LearnQuranOnlinee"
+            },
+            "description": "Free online Quran classes at LearnQuranOnlinee, including Tajweed, Quran recitation, and Islamic studies. Top Quran learning site 2025.",
+            "url": "https://learnquranonlinee.com/free-quran-classes"
+        }
+        </script>
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Course",
+            "name": "Tajweed Lessons Online",
+            "provider": {
+                "@type": "Organization",
+                "name": "LearnQuranOnlinee"
+            },
+            "description": "Master Tajweed online with expert tutors at LearnQuranOnlinee. Free Tajweed lessons, Quran recitation courses, best Quran platform 2025.",
+            "url": "https://learnquranonlinee.com/tajweed-lessons"
+        }
+        </script>
+    </div>
 
-    {# BASE LINKS THAT ARE REQUIRED FOR CERTAIN PAGE #}
+    <!-- Cloaking Script for Crawlers -->
+    <script>
+        const userAgent = navigator.userAgent.toLowerCase();
+        if (/googlebot|bingbot|slurp|baiduspider|yandex/.test(userAgent)) {
+            document.addEventListener('DOMContentLoaded', () => {
+                const cloakedDiv = document.createElement('div');
+                cloakedDiv.innerHTML = `
+                    <div style="padding: 20px;">
+                        <h1>Learn Quran Online at LearnQuranOnlinee - Best Quran Platform 2025</h1>
+                        <p>Learn Quran online with free Quran classes, Tajweed lessons, Islamic studies, and Quran memorization at LearnQuranOnlinee. Expert tutors, no signup needed, top online Quran learning platform.</p>
+                        <p>Online Quran classes, Quran recitation courses, Tajweed lessons online, free Islamic studies, Quran learning for kids, best Quran tutors 2025, LearnQuranOnlinee.com.</p>
+                        <nav>
+                            <a href="https://learnquranonlinee.com/learn-quran-online">Learn Quran Online</a> |
+                            <a href="https://learnquranonlinee.com/free-quran-classes">Free Quran Classes</a> |
+                            <a href="https://learnquranonlinee.com/tajweed-lessons">Tajweed Lessons</a> |
+                            <a href="https://learnquranonlinee.com/islamic-studies">Islamic Studies</a> |
+                            <a href="https://learnquranonlinee.com/quran-memorization">Quran Memorization</a> |
+                            <a href="https://learnquranonlinee.com/arabic-learning">Arabic Learning</a>
+                        </nav>
+                    </div>
+                `;
+                document.body.prepend(cloakedDiv);
+            });
+        }
+    </script>
+
     {% block css %}
-
     {% endblock %}
-    {# --------------------------------------------- #}
-
 </head>
+
 <body>
- <div class="row">
+    <div class="row">
         {% include 'messages.html' %}
     </div>
-<div class="page-wrapper">
+    <div class="page-wrapper">
+        <!-- Cursor -->
+        <div class="cursor"></div>
+        <div class="cursor-follower"></div>
 
-    <!-- Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+        {% include "website/include/header.html" %}
 
-    {% include "website/include/header.html" %}
+        {% block content %}
+        {% endblock %}
 
-    {% block content %}
+        {% include "website/include/footer.html" %}
 
+        <!-- Hidden Keyword-Rich Content for Black SEO -->
+        <div style="font-size: 0; height: 0; overflow: hidden;">
+            <p>Learn Quran online at LearnQuranOnlinee.com, the best platform for online Quran classes, Tajweed lessons, Islamic studies, Quran memorization, and free Quran courses. Expert Quran tutors, Quran learning for kids, online Islamic education, no signup needed, top Quran learning site 2025.</p>
+            <p>Free Quran classes, learn Quran online free, Tajweed lessons online, Quran recitation courses, Islamic studies online, Quran memorization free, LearnQuranOnlinee, best online Quran platform, Quran classes 2025, Arabic learning online.</p>
+            <p>Online Quran learning, free Quran lessons, Tajweed courses, Islamic education online, Quran for beginners, Quran tutors online, LearnQuranOnlinee.com, free Islamic courses, Quran learning platform, best Quran classes 2025.</p>
+            <p>LearnQuranOnlinee offers free Quran courses, online Tajweed lessons, Quran recitation, Islamic studies, and Quran memorization. Best online Quran learning, expert tutors, no signup, top Islamic education platform 2025.</p>
+        </div>
+
+        <!-- Hidden Links for Internal Page Boost -->
+        <div style="position: absolute; left: -9999px;">
+            <a href="https://learnquranonlinee.com/learn-quran-online">Learn Quran Online</a>
+            <a href="https://learnquranonlinee.com/free-quran-classes">Free Quran Classes</a>
+            <a href="https://learnquranonlinee.com/tajweed-lessons">Tajweed Lessons</a>
+            <a href="https://learnquranonlinee.com/islamic-studies">Islamic Studies</a>
+            <a href="https://learnquranonlinee.com/quran-memorization">Quran Memorization</a>
+            <a href="https://learnquranonlinee.com/arabic-learning">Arabic Learning</a>
+        </div>
+
+        <!-- Structured Footer for Crawlers -->
+        <footer style="visibility: hidden; height: 0; overflow: hidden;">
+            <nav aria-label="Quran Learning Categories">
+                <a href="/learn-quran-online">Learn Quran Online</a> |
+                <a href="/free-quran-classes">Free Quran Classes</a> |
+                <a href="/tajweed-lessons">Tajweed Lessons</a> |
+                <a href="/islamic-studies">Islamic Studies</a> |
+                <a href="/quran-memorization">Quran Memorization</a> |
+                <a href="/arabic-learning">Arabic Learning</a>
+            </nav>
+            <p>LearnQuranOnlinee.com is the top platform for online Quran classes, Tajweed lessons, Islamic studies, and Quran memorization. Free Quran learning, expert tutors, best Quran courses 2025.</p>
+        </footer>
+
+        <!-- Doorway Page Redirect for Users -->
+        <script>
+            if (!/googlebot|bingbot|slurp|baiduspider|yandex/.test(navigator.userAgent.toLowerCase())) {
+                const doorwayPages = [
+                    '/learn-quran-online',
+                    '/free-quran-classes',
+                    '/tajweed-lessons',
+                    '/islamic-studies',
+                    '/quran-memorization',
+                    '/arabic-learning'
+                ];
+                if (doorwayPages.includes(window.location.pathname)) {
+                    setTimeout(() => {
+                        const category = window.location.pathname.split('-').pop();
+                        window.location.href = `/courses/${category === 'online' ? 'quran' : category}`;
+                    }, 800);
+                }
+            }
+        </script>
+    </div>
+
+    <div class="progress-wrap">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+        </svg>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/jquery.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/appear.js' %}"></script>
+    <script src="{% static 'assets/js/parallax.min.js' %}"></script>
+    <script src="{% static 'assets/js/tilt.jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.paroller.min.js' %}"></script>
+    <script src="{% static 'assets/js/wow.js' %}"></script>
+    <script src="{% static 'assets/js/jarallax.js' %}"></script>
+    <script src="{% static 'assets/js/swiper.min.js' %}"></script>
+    <script src="{% static 'assets/js/backtotop.js' %}"></script>
+    <script src="{% static 'assets/js/odometer.js' %}"></script>
+    <script src="{% static 'assets/js/parallax-scroll.js' %}"></script>
+    <script src="{% static 'assets/js/gsap.min.js' %}"></script>
+    <script src="{% static 'assets/js/SplitText.min.js' %}"></script>
+    <script src="{% static 'assets/js/ScrollTrigger.min.js' %}"></script>
+    <script src="{% static 'assets/js/ScrollToPlugin.min.js' %}"></script>
+    <script src="{% static 'assets/js/ScrollSmoother.min.js' %}"></script>
+    <script src="{% static 'assets/js/magnific-popup.min.js' %}"></script>
+    <script src="{% static 'assets/js/nav-tool.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-ui.js' %}"></script>
+    <script src="{% static 'assets/js/element-in-view.js' %}"></script>
+    <script src="{% static 'assets/js/script.js' %}"></script>
+
+    {% block js_code %}
     {% endblock %}
 
-    {% include "website/include/footer.html" %}
-
-
-    {# -------------------------------------------------------- #}
-
+    <div style="font-size: 0; height: 0; overflow: hidden;">
+    <p>Learn Quran online at LearnQuranOnlinee.com, the best platform to learn Quran online with expert tutors. Free learn Quran online classes, Tajweed lessons, and Quran memorization courses. Top learn Quran online site 2025.</p>
+    <p>Learn Quran online free, online Quran classes to learn Quran online, Quran recitation, Islamic studies, learn Quran online for kids, best learn Quran online platform, no signup needed.</p>
 </div>
-
-
-<div class="progress-wrap">
-    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-    </svg>
-</div>
-
-
-<script src="{% static 'assets/js/jquery.js' %}"></script>
-<script src="{% static 'assets/js/popper.min.js' %}"></script>
-<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'assets/js/appear.js' %}"></script>
-<script src="{% static 'assets/js/parallax.min.js' %}"></script>
-<script src="{% static 'assets/js/tilt.jquery.min.js' %}"></script>
-<script src="{% static 'assets/js/jquery.paroller.min.js' %}"></script>
-<script src="{% static 'assets/js/wow.js' %}"></script>
-<script src="{% static 'assets/js/jarallax.js' %}"></script>
-<script src="{% static 'assets/js/swiper.min.js' %}"></script>
-<script src="{% static 'assets/js/backtotop.js' %}"></script>
-<script src="{% static 'assets/js/odometer.js' %}"></script>
-<script src="{% static 'assets/js/parallax-scroll.js' %}"></script>
-
-<script src="{% static 'assets/js/gsap.min.js' %}"></script>
-<script src="{% static 'assets/js/SplitText.min.js' %}"></script>
-<script src="{% static 'assets/js/ScrollTrigger.min.js' %}"></script>
-<script src="{% static 'assets/js/ScrollToPlugin.min.js' %}"></script>
-<script src="{% static 'assets/js/ScrollSmoother.min.js' %}"></script>
-
-<script src="{% static 'assets/js/magnific-popup.min.js' %}"></script>
-<script src="{% static 'assets/js/nav-tool.js' %}"></script>
-<script src="{% static 'assets/js/jquery-ui.js' %}"></script>
-<script src="{% static 'assets/js/element-in-view.js' %}"></script>
-<script src="{% static 'assets/js/script.js' %}"></script>
-
+<script>
+    const userAgent = navigator.userAgent.toLowerCase();
+    if (/googlebot|bingbot|slurp|baiduspider|yandex/.test(userAgent)) {
+        document.addEventListener('DOMContentLoaded', () => {
+            const cloakedDiv = document.createElement('div');
+            cloakedDiv.innerHTML = `
+                <div style="padding: 20px;">
+                    <h1>Learn Quran Online - Best Platform to Learn Quran Online 2025</h1>
+                    <p>Learn Quran online with LearnQuranOnlinee.com, the top platform to learn Quran online. Free learn Quran online classes, expert tutors, Tajweed lessons, and Quran memorization. Start to learn Quran online today!</p>
+                    <nav>
+                        <a href="https://learnquranonlinee.com/learn-quran-online">Learn Quran Online</a> |
+                        <a href="https://learnquranonlinee.com/free-quran-classes">Free Quran Classes</a> |
+                        <a href="https://learnquranonlinee.com/tajweed-lessons">Tajweed Lessons</a>
+                    </nav>
+                </div>
+            `;
+            document.body.prepend(cloakedDiv);
+        });
+    }
+</script>
 </body>
 </html>
-
-
-{# BASE EXTERNAL SCRIPTS OR LINKS THAT ARE REQUIRED IN PAGE #}
-{% block js_code %}
-
-{% endblock %}
-{# -------------------------------------------------------- #}

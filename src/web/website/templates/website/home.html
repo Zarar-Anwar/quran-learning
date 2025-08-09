@@ -2,21 +2,76 @@
 
 {% load static %}
 
+{% block meta_title %}Learn Quran Online - Professional Islamic Education Platform{% endblock %}
+{% block meta_description %}Join the largest online Islamic madrasah. Learn Quran online with expert instructors, structured courses, and flexible scheduling. Start your Quranic journey today with our ISO certified educational institution.{% endblock %}
+{% block meta_keywords %}learn quran online, islamic madrasah, online islamic education, quran learning platform, islamic studies, tajweed, arabic learning, muslim education, quran recitation, islamic academy{% endblock %}
+
+{% block og_type %}website{% endblock %}
+{% block og_title %}Learn Quran Online - Professional Islamic Education Platform{% endblock %}
+{% block og_description %}Join the largest online Islamic madrasah. Learn Quran online with expert instructors, structured courses, and flexible scheduling. Start your Quranic journey today.{% endblock %}
+
+{% block twitter_title %}Learn Quran Online - Professional Islamic Education Platform{% endblock %}
+{% block twitter_description %}Join the largest online Islamic madrasah. Learn Quran online with expert instructors, structured courses, and flexible scheduling.{% endblock %}
+
+{% block schema_type %}WebSite{% endblock %}
+
+{% block page_title %}Home{% endblock %}
+
 {% block title %}
     Home
 {% endblock %}
 
-
 {% block content %}
 
-    <section class="slider-two">
+    <!-- Structured Data for Homepage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Learn Quran Online",
+        "url": "https://learnquranonlinee.com",
+        "description": "Professional online Quran learning platform with expert instructors",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://learnquranonlinee.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "AlQuran Online Academy",
+        "alternateName": "Learn Quran Online",
+        "url": "https://learnquranonlinee.com",
+        "description": "Largest online Islamic madrasah providing comprehensive Quran education",
+        "foundingDate": "2020",
+        "award": "ISO Certified Educational Institution",
+        "educationalLevel": "All Levels",
+        "curriculum": "Islamic Studies, Quran Recitation, Tajweed, Arabic Language",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "US"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "availableLanguage": ["English", "Arabic"]
+        }
+    }
+    </script>
+
+    <section class="slider-two" role="banner" aria-label="Main banner">
         <div class="main-slider_two swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
             <div class="swiper-wrapper" id="swiper-wrapper-52110f44550ce1dc" aria-live="off"
                  style="transition-duration: 0ms; transform: translate3d(-750px, 0px, 0px);">
                 <div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="2"
                      role="group" aria-label="1 / 5" style="width: 375px;">
                     <div class="slider-two_image-layer"
-                         style="background-image: url('{% static "assets/images/main-slider/6.jpg" %}');">
+                         style="background-image: url('{% static "assets/images/main-slider/6.jpg" %}');"
+                         aria-label="Islamic education background image">
                         >
                     </div>
                     <div class="auto-container">
@@ -30,7 +85,7 @@
                                     institution of international standards
                                 </div>
                                 <div class="slider-two_button">
-                                    <a href="{% url 'website:courses' %}" class="theme-btn btn-style-four">
+                                    <a href="{% url 'website:courses' %}" class="theme-btn btn-style-four" aria-label="Browse our Quran courses">
 										<span class="btn-wrap">
 											<span class="text-one">Find the course</span>
 											<span class="text-two">Find the course</span>
@@ -47,7 +102,8 @@
                 <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="0" role="group" aria-label="2 / 5"
                      style="width: 375px;">
                     <div class="slider-two_image-layer"
-                         style="background-image: url('{% static "assets/images/main-slider/4.jpg" %}');"></div>
+                         style="background-image: url('{% static "assets/images/main-slider/4.jpg" %}');"
+                         aria-label="Quran learning background image"></div>
                     <div class="auto-container">
 
                         <!-- Content Column -->
@@ -59,7 +115,7 @@
                                     institution of international standards
                                 </div>
                                 <div class="slider-two_button">
-                                    <a href="course-detail.html" class="theme-btn btn-style-four">
+                                    <a href="{% url 'website:courses' %}" class="theme-btn btn-style-four" aria-label="Explore our Islamic courses">
 										<span class="btn-wrap">
 											<span class="text-one">Find the course</span>
 											<span class="text-two">Find the course</span>
@@ -76,7 +132,8 @@
                 <div class="swiper-slide swiper-slide-active" data-swiper-slide-index="1" role="group"
                      aria-label="3 / 5" style="width: 375px;">
                     <div class="slider-two_image-layer"
-                         style="background-image:url('{% static "assets/images/main-slider/5.jpg" %}')"></div>
+                         style="background-image:url('{% static "assets/images/main-slider/5.jpg" %}')"
+                         aria-label="Islamic studies background image"></div>
                     <div class="auto-container">
 
                         <!-- Content Column -->
@@ -88,7 +145,7 @@
                                     institution of international standards
                                 </div>
                                 <div class="slider-two_button">
-                                    <a href="course-detail.html" class="theme-btn btn-style-four">
+                                    <a href="{% url 'website:courses' %}" class="theme-btn btn-style-four" aria-label="Start your Quran learning journey">
 										<span class="btn-wrap">
 											<span class="text-one">Find the course</span>
 											<span class="text-two">Find the course</span>

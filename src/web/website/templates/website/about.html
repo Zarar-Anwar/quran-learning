@@ -2,18 +2,67 @@
 
 {% load static %}
 
+{% block meta_title %}About Us - Learn Quran Online Islamic Academy{% endblock %}
+{% block meta_description %}Discover our mission to provide quality Islamic education online. Since 1995, we've been serving the global Muslim community with comprehensive Quran learning programs and Islamic studies.{% endblock %}
+{% block meta_keywords %}about learn quran online, islamic academy, online madrasah, islamic education history, quran teaching mission, muslim education platform{% endblock %}
+
+{% block og_type %}website{% endblock %}
+{% block og_title %}About Us - Learn Quran Online Islamic Academy{% endblock %}
+{% block og_description %}Discover our mission to provide quality Islamic education online. Since 1995, we've been serving the global Muslim community with comprehensive Quran learning programs.{% endblock %}
+
+{% block twitter_title %}About Us - Learn Quran Online Islamic Academy{% endblock %}
+{% block twitter_description %}Discover our mission to provide quality Islamic education online. Since 1995, we've been serving the global Muslim community with comprehensive Quran learning programs.{% endblock %}
+
+{% block schema_type %}AboutPage{% endblock %}
+
+{% block page_title %}About Us{% endblock %}
+
 {% block title %}
     About
 {% endblock %}
 
 {% block content %}
 
+    <!-- Structured Data for About Page -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About Learn Quran Online",
+        "description": "Learn about our mission to provide quality Islamic education online since 1995",
+        "url": "https://learnquranonlinee.com/about/",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "Learn Quran Online",
+            "alternateName": "AlQuran Online Academy",
+            "description": "Online Islamic madrasah providing comprehensive Quran education",
+            "foundingDate": "1995",
+            "url": "https://learnquranonlinee.com",
+            "logo": "https://learnquranonlinee.com{% static 'assets/images/logo.png' %}",
+            "sameAs": [
+                "https://facebook.com/learnquranonlinee",
+                "https://twitter.com/learnquranonlinee",
+                "https://instagram.com/learnquranonlinee"
+            ],
+            "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "US"
+            },
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "availableLanguage": ["English", "Arabic"]
+            }
+        }
+    }
+    </script>
+
     <section class="page-title"
              style="background-image:url(' {% static "assets/images/background/page-title.jpg" %}');margin-top:100px">
         <div class="auto-container">
-            <h2>About</h2>
+            <h1>About Our Islamic Academy</h1>
             <ul class="bread-crumb clearfix">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="{% url 'website:home' %}">Home</a></li>
                 <li>About Us</li>
             </ul>
         </div>
@@ -35,13 +84,13 @@
                         <div class="welcome-two_dots-two"
                              style="background-image:url(' {% static "assets/images/background/pattern-2.png" %}')"></div>
                         <div class="welcome-two_ameen">
-                            <img src="{% static 'assets/images/icons/ameen-1.png' %}" alt="">
+                            <img src="{% static 'assets/images/icons/ameen-1.png' %}" alt="Islamic calligraphy">
                         </div>
                         <div class="welcome-two_image">
-                            <img src="{% static 'assets/images/resource/welcome-2.jpg' %}" alt="">
+                            <img src="{% static 'assets/images/resource/welcome-2.jpg' %}" alt="Islamic education and learning">
                         </div>
                         <div class="welcome-two_image-two">
-                            <img src="{% static 'assets/images/resource/welcome-4.jpg' %}" alt="">
+                            <img src="{% static 'assets/images/resource/welcome-4.jpg' %}" alt="Quran learning environment">
                         </div>
                         <div class="welcome-two_years d-flex align-items-center flex-wrap">
                             <span class="fa-solid fa-globe fa-fw"></span>
@@ -56,7 +105,7 @@
                         <!-- Sec Title -->
                         <div class="sec-title">
                             <div class="sec-title_title d-flex align-items-center">Islamic Online Madrasah <span><img
-                                    src="{% static 'assets/images/icons/bismillah-2.png' %}" alt=""></span></div>
+                                    src="{% static 'assets/images/icons/bismillah-2.png' %}" alt="Bismillah calligraphy"></span></div>
                             <h2 class="sec-title_heading">Online Islamic School At Home</h2>
                             <div class="sec-title_text">We welcome our users to Online Quran teaching services where we
                                 are offering multiple Islamic as well as character building and life reformation courses
@@ -65,7 +114,7 @@
                         </div>
                         <div class="welcome-two_middle-content">
                             <div class="welcome-two_icon">
-                                <img src="{% static 'assets/images/icons/welcome_two.png' %}" alt="">
+                                <img src="{% static 'assets/images/icons/welcome_two.png' %}" alt="Islamic education icon">
                             </div>
                             <div class="welcome-two_learn">
                                 <span class="welcome-two_learn-icon flaticon-mosque"></span>
@@ -78,9 +127,9 @@
                         </div>
                         <div class="welcome-two_middle-lower d-flex align-items-center flex-wrap">
                             <div class="welcome-two_thumb">
-                                <img src="{% static 'assets/images/resource/welcome-3.jpg' %}" alt="">
+                                <img src="{% static 'assets/images/resource/welcome-3.jpg' %}" alt="Peaceful Islamic learning environment">
                             </div>
-                            <h5 class="welcome-two_title">Peaceful</h5>
+                            <h3 class="welcome-two_title">Peaceful</h3>
                             <p>Working for peace &amp; serving humanity. lorem free market to available, but the
                                 majority have alteration in some form</p>
                         </div>
