@@ -184,7 +184,7 @@
 
 /* App logo sizing (keeps logos from breaking layout) */
 .app-logo{
-	max-height:60px;
+	max-height:56px;
 	height:auto;
 	width:auto;
 	object-fit:contain;
@@ -209,6 +209,15 @@
 
 .main-header .header-upper .logo-box .logo{
 	position:relative;
+}
+
+/* Better spacing on small screens */
+@media (max-width: 992px){
+	.main-header .header-upper .logo-box{ padding: 8px 0; }
+	.app-logo{ max-height:48px; }
+}
+@media (max-width: 576px){
+	.app-logo{ max-height:40px; }
 }
 
 .main-header .main-menu .navigation > li:nth-child(7) > ul,
