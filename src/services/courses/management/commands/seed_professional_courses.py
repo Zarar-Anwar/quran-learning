@@ -25,7 +25,7 @@ CURATED_COURSES = [
         "title": "Tajweed Mastery (Rules of Recitation)",
         "price": "49/mo",
         "lessons_count": 36,
-        "image_url": "https://images.unsplash.com/photo-1544717305-2782549b5136?w=1600&q=80&auto=format&fit=crop",
+        "image_url": "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=1600&q=80&auto=format&fit=crop",
         "overview": "Master Makharij, Sifaat, Madd, Qalqalah, Ikhfa, Idgham and all core Tajweed rules with practical recitation coaching.",
         "description": (
             "A structured Tajweed curriculum with live feedback. Includes weekly recitation labs, rule drills, and assignments with audio examples."
@@ -89,6 +89,26 @@ CURATED_COURSES = [
         "overview": "A clear introduction to Nahw (syntax) and Sarf (morphology) to decode Quranic sentences.",
         "description": (
             "Learn cases, i'rab, verb forms and noun patterns with Quran-based examples and targeted exercises."
+        ),
+    },
+    {
+        "title": "Quranic Arabic Vocabulary Builder",
+        "price": "39",
+        "lessons_count": 26,
+        "image_url": "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=1600&q=80&auto=format&fit=crop",
+        "overview": "Memorize the top 1,000 high-frequency Quranic words with spaced repetition and context.",
+        "description": (
+            "Theme-based word lists, example verses, and quick quizzes to rapidly boost comprehension while reciting."
+        ),
+    },
+    {
+        "title": "Islamic Studies Fundamentals",
+        "price": "59",
+        "lessons_count": 24,
+        "image_url": "https://images.unsplash.com/photo-1519337265831-281ec6cc8514?w=1600&q=80&auto=format&fit=crop",
+        "overview": "A survey of Aqeedah, Seerah, Fiqh, and Adab with practical applications for daily life.",
+        "description": (
+            "Structured readings, discussions, and case studies drawn from authentic sources to build a balanced foundation."
         ),
     },
 ]
