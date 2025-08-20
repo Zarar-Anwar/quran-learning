@@ -4,7 +4,7 @@ from django.utils import timezone
 
 import io
 import requests
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from src.services.courses.models import Course, Instructor
 
@@ -65,7 +65,10 @@ CURATED_COURSES = [
         "title": "Quran Recitation for Kids",
         "price": "19.99",
         "lessons_count": 28,
-        "image_url": "https://images.unsplash.com/photo-1596495578065-8a35f76d72da?w=1600&q=80&auto=format&fit=crop",
+        "image_url": [
+            "https://images.unsplash.com/photo-1530021232320-687d4f9ab265?w=1600&q=80&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1520975928316-56d6ef2e1f85?w=1600&q=80&auto=format&fit=crop",
+        ],
         "overview": "Child-friendly reading program with games, stickers and short surah goals to keep kids motivated.",
         "description": (
             "Designed for ages 5–12. Includes parent progress dashboards and gentle coaching to improve fluency and love for the Quran."
@@ -115,9 +118,18 @@ CURATED_COURSES = [
 
 
 def download_and_fit_image(url: str, target_w=1280, target_h=720) -> ContentFile:
-    resp = requests.get(url, timeout=20)
-    resp.raise_for_status()
-    img = Image.open(io.BytesIO(resp.content)).convert('RGB')
+    """Download and center-crop an image to 16:9. On failure, return a generated placeholder."""
+    try:
+        resp = requests.get(url, timeout=20)
+        resp.raise_for_status()
+        img = Image.open(io.BytesIO(resp.content)).convert('RGB')
+    except Exception:
+        # Fallback: generate a green placeholder
+        img = Image.new('RGB', (target_w, target_h), color=(40, 167, 69))
+        draw = ImageDraw.Draw(img)
+        fallback_text = "Quran Course"
+        tw = draw.textlength(fallback_text)
+        draw.text(((target_w - tw) / 2, target_h/2 - 10), fallback_text, fill=(255, 255, 255))
     # center-crop to aspect 16:9 then resize
     src_w, src_h = img.size
     target_ratio = target_w / target_h
@@ -166,7 +178,18 @@ class Command(BaseCommand):
             title = data['title']
             if Course.objects.filter(title=title).exists():
                 continue
-            image_file = download_and_fit_image(data['image_url'])
+            # Support single URL or list of URLs with fallback
+            image_urls = data['image_url'] if isinstance(data['image_url'], (list, tuple)) else [data['image_url']]
+            image_file = None
+            for candidate in image_urls:
+                try:
+                    image_file = download_and_fit_image(candidate)
+                    break
+                except Exception:
+                    image_file = None
+            if image_file is None:
+                # last-resort placeholder
+                image_file = download_and_fit_image('about:blank')
             course = Course(
                 title=title,
                 description=data['description'],
