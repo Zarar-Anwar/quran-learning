@@ -373,13 +373,10 @@
                             <div class="course-stat-label">Enrollments</div>
                         </div>
                         <div class="course-stat">
-                            <div class="course-stat-value">${{ course.price|floatformat:2 }}</div>
+                            <div class="course-stat-value">${{ course.price }}</div>
                             <div class="course-stat-label">Price</div>
                         </div>
-                        <div class="course-stat">
-                            <div class="course-stat-value">{{ course.duration_weeks }}</div>
-                            <div class="course-stat-label">Weeks</div>
-                        </div>
+                        
                     </div>
                 </div>
                 {% empty %}

@@ -52,7 +52,7 @@
         "inLanguage": ["English", "Arabic"],
         "coursePrerequisites": "{{ course.prerequisites|default:'No prerequisites required' }}",
         "numberOfCredits": "{{ course.lessons_count }}",
-        "timeRequired": "P{{ course.duration_weeks }}W",
+        
         "offers": {
             "@type": "Offer",
             "price": "{{ course.price }}",
@@ -119,7 +119,7 @@
                                     <!-- List -->
                                     <ul class="course-detail_list">
                                         <li><span>{{ course.lessons_count }}</span> lessons</li>
-                                        <li><span>{{ course.duration_weeks }}</span> weeks</li>
+                                        
 
                                         {# Count enrollments dynamically #}
                                         <li><span>{{ course.enrollment_set.count }}</span> enroll</li>
@@ -249,7 +249,7 @@
                                 <ul class="course-list">
                                     <li>Course Fee <span>${{ course.price }}</span></li>
                                     <li>Lessons <span>{{ course.lessons_count }}</span></li>
-                                    <li>Duration<span> {{ course.duration_weeks }} weeks</span></li>
+                                    
                                     <li>Students<span>{{ course.enrollment_set.count }}</span></li>
                                     <li><span>Trial Available</span> {{ course.is_trial_available|yesno:"Yes,No" }}</li>
                                     {% if course.is_trial_available %}

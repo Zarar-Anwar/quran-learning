@@ -53,16 +53,16 @@ class InstructorAdmin(admin.ModelAdmin):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title', 'instructor', 'price', 'duration_weeks', 'lessons_count', 'enrollment_count', 'revenue', 'image_preview')
-    list_filter = ('instructor', 'is_trial_available', 'duration_weeks')
+    list_display = ('title', 'instructor', 'price', 'lessons_count', 'enrollment_count', 'revenue', 'image_preview')
+    list_filter = ('instructor', 'is_trial_available')
     search_fields = ('title', 'description', 'overview')
     readonly_fields = ('image_preview', 'enrollment_count', 'revenue')
     fieldsets = (
         ('Basic Information', {
             'fields': ('title', 'image', 'image_preview', 'description', 'overview')
         }),
-        ('Pricing & Duration', {
-            'fields': ('price', 'duration_weeks', 'lessons_count')
+        ('Pricing & Lessons', {
+            'fields': ('price', 'lessons_count')
         }),
         ('Instructor & Trial', {
             'fields': ('instructor', 'is_trial_available', 'trial_days')
@@ -74,7 +74,11 @@ class CourseAdmin(admin.ModelAdmin):
     enrollment_count.short_description = 'Enrollments'
     
     def revenue(self, obj):
-        total = obj.enrollment_set.count() * obj.price
+        try:
+            price_value = float(str(obj.price).replace('$','').strip())
+        except (TypeError, ValueError):
+            price_value = 0.0
+        total = obj.enrollment_set.count() * price_value
         return f"${total:.2f}"
     revenue.short_description = 'Revenue'
     
@@ -150,7 +154,12 @@ class CoursesAdminSite(admin.AdminSite):
         total_courses = Course.objects.count()
         total_instructors = Instructor.objects.count()
         total_enrollments = Enrollment.objects.count()
-        total_revenue = sum(course.price * course.enrollment_set.count() for course in Course.objects.all())
+        def parse_price(p):
+            try:
+                return float(str(p).replace('$','').strip())
+            except (TypeError, ValueError):
+                return 0.0
+        total_revenue = sum(parse_price(course.price) * course.enrollment_set.count() for course in Course.objects.all())
         
         # Recent enrollments
         recent_enrollments = Enrollment.objects.select_related('user', 'course').order_by('-enrolled_on')[:10]
@@ -204,7 +213,7 @@ class CoursesAdminSite(admin.AdminSite):
         courses_data = Course.objects.select_related('instructor').all()
         
         # Headers
-        headers = ['Title', 'Instructor', 'Price', 'Duration (Weeks)', 'Lessons', 'Enrollments', 'Revenue']
+        headers = ['Title', 'Instructor', 'Price', 'Lessons', 'Enrollments', 'Revenue']
         for col, header in enumerate(headers):
             courses_sheet.write(0, col, header, header_format)
         
@@ -214,11 +223,11 @@ class CoursesAdminSite(admin.AdminSite):
             revenue = enrollment_count * course.price
             courses_sheet.write(row, 0, course.title)
             courses_sheet.write(row, 1, course.instructor.name)
-            courses_sheet.write(row, 2, float(course.price))
-            courses_sheet.write(row, 3, course.duration_weeks)
-            courses_sheet.write(row, 4, course.lessons_count)
-            courses_sheet.write(row, 5, enrollment_count)
-            courses_sheet.write(row, 6, float(revenue))
+            # Write price as string; also try numeric for safety
+            courses_sheet.write(row, 2, str(course.price))
+            courses_sheet.write(row, 3, course.lessons_count)
+            courses_sheet.write(row, 4, enrollment_count)
+            courses_sheet.write(row, 5, float(revenue))
         
         # Enrollments Sheet
         enrollments_sheet = workbook.add_worksheet('Enrollments')
@@ -245,7 +254,7 @@ class CoursesAdminSite(admin.AdminSite):
         # Calculate statistics
         total_courses = Course.objects.count()
         total_enrollments = Enrollment.objects.count()
-        total_revenue = sum(course.price * course.enrollment_set.count() for course in Course.objects.all())
+        total_revenue = sum(parse_price(course.price) * course.enrollment_set.count() for course in Course.objects.all())
         trial_enrollments = Enrollment.objects.filter(is_trial=True).count()
         full_enrollments = Enrollment.objects.filter(is_trial=False).count()
         
@@ -291,7 +300,7 @@ class CoursesAdminSite(admin.AdminSite):
         return {
             'total_courses': Course.objects.count(),
             'active_courses': Course.objects.filter(enrollment__isnull=False).distinct().count(),
-            'avg_price': Course.objects.aggregate(avg_price=Sum('price'))['avg_price'] or 0,
+            'avg_price': 0,  # price is string now; skip DB average
             'total_lessons': sum(course.lessons_count for course in Course.objects.all()),
         }
     
@@ -306,7 +315,7 @@ class CoursesAdminSite(admin.AdminSite):
         }
     
     def get_revenue_statistics(self):
-        total_revenue = sum(course.price * course.enrollment_set.count() for course in Course.objects.all())
+        total_revenue = sum(parse_price(course.price) * course.enrollment_set.count() for course in Course.objects.all())
         return {
             'total_revenue': total_revenue,
             'avg_revenue_per_course': total_revenue / Course.objects.count() if Course.objects.count() > 0 else 0,

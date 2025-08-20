@@ -1,6 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
+from django.templatetags.static import static
+import random
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -90,6 +92,21 @@ class Application(models.Model):
         if Application.objects.exists() and not self.pk:
             raise ValidationError("Only one record allowed.")
         super(Application, self).save(*args, **kwargs)
+
+    def get_logo_url(self):
+        if self.logo:
+            return self.logo.url
+        if self.logo_light:
+            return self.logo_light.url
+        if self.logo_dark:
+            return self.logo_dark.url
+        default_paths = [
+            'core/images/logos/logo-light.png',
+            'core/images/logos/logo-red-1000.png',
+            'core/images/logos/logo-red.png',
+            'core/images/logos/logo-red-1000.svg',
+        ]
+        return static(random.choice(default_paths))
 
 
 class Service(models.Model):
