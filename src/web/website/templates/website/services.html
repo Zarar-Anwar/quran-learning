@@ -29,20 +29,14 @@
                             <div class="service-block_two-inner wow fadeInLeft animated">
                                 <div class="service-block_two-upper">
                                     <div class="service-block_two-icon {{ service.icon_class }}"></div>
-                                    <div class="service-block_two-big_icon">
-                                        <img src="{{ service.big_icon.url }}" alt="">
-                                    </div>
+                                   
                                     <h4 class="service-block_two-heading">
                                         <a href="{{ service.detail_page_url }}">{{ service.title }}<br>{{ service.subtitle }}
                                         </a>
                                     </h4>
                                     <div class="service-block_two-text">{{ service.description }}</div>
                                 </div>
-                                <div class="service-block_two-lower">
-                                    <a class="service-block_two-more" href="{{ service.detail_page_url }}">
-                                        Read More<i class="fa-solid fa-arrow-right fa-fw"></i>
-                                    </a>
-                                </div>
+                              
                             </div>
                         </div>
                     {% endfor %}
