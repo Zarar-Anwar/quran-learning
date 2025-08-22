@@ -95,6 +95,14 @@
 	margin-bottom: var(--margin-bottom-20);
 }
 
+/* App logo sizing in footer */
+.footer-logo .app-logo{
+	max-height:60px;
+	height:auto;
+	width:auto;
+	object-fit:contain;
+}
+
 .footer-text{
 	position: relative;
 	line-height: 28px;
