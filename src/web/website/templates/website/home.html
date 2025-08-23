@@ -366,7 +366,7 @@
                                         {% if service.detail_page_url == 'service-detail.html' %}
                                             <a href="{% url 'website:services' %}">{{ service.title }}<br>{{ service.subtitle }}</a>
                                         {% else %}
-                                            <a href="{{ service.detail_page_url }}">{{ service.title }}<br>{{ service.subtitle }}</a>
+                                            <a href="{% url 'website:services' %}">{{ service.title }}<br>{{ service.subtitle }}</a>
                                         {% endif %}
                                     </h4>
                                     <div class="service-block_two-text">{{ service.description }}</div>
@@ -375,7 +375,7 @@
                                     {% if service.detail_page_url == 'service-detail.html' %}
                                     <a class="service-block_two-more" href="{% url 'website:services' %}">
                                     {% else %}
-                                    <a class="service-block_two-more" href="{{ service.detail_page_url }}">
+                                    <a class="service-block_two-more" href="{% url 'website:services' %}">
                                     {% endif %}
                                         Read More<i class="fa-solid fa-arrow-right fa-fw"></i>
                                     </a>
