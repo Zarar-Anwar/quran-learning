@@ -141,27 +141,6 @@
             <div class="nav-logo"><a href="{% url 'website:home' %}"><img class="app-logo img-fluid" src="{{ app.get_logo_url }}"
                                                                           alt="{{ app.name }}" title="{{ app.name }}"></a></div>
             <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
-                <div class="navbar-header">
-                    <!-- Toggle Button -->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-
-                <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
-                    <ul class="navigation clearfix">
-                        <li><a href="{% url 'website:home' %}">Home</a></li>
-                        <li><a href="{% url 'website:courses' %}">Courses</a></li>
-                        <li><a href="{% url 'website:services' %}">Services</a></li>
-                        <li><a href="{% url 'website:about' %}">About</a></li>
-                        <li><a href="{% url 'website:contact' %}">Contact</a></li>
-                        <li><a href="{% url 'website:videos' %}">Videos</a></li>
-                    </ul>
-                </div>
             </div>
         </nav>
     </div>
