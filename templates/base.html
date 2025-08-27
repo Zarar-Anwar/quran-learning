@@ -12,7 +12,12 @@
     <meta name="author" content="mark">
     <meta name="developer" content="zaalasociety.com">
     <meta name="org-name" content="zaalasociety"/>
-    <link rel="icon" href="{% if app.favicon %}{{ app.favicon.url }}{% else %}{% static 'fav_logo.png' %}{% endif %}">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% if app.favicon %}{{ app.favicon.url }}{% else %}{% static 'fav_logo.png' %}{% endif %}" type="image/x-icon">
+    <link rel="icon" href="{% if app.favicon %}{{ app.favicon.url }}{% else %}{% static 'fav_logo.png' %}{% endif %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% if app.favicon %}{{ app.favicon.url }}{% else %}{% static 'fav_logo.png' %}{% endif %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% if app.favicon %}{{ app.favicon.url }}{% else %}{% static 'fav_logo.png' %}{% endif %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% if app.favicon %}{{ app.favicon.url }}{% else %}{% static 'fav_logo.png' %}{% endif %}">
 
     <title>
 
