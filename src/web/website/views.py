@@ -61,6 +61,9 @@ class CoursesView(ListView):
     model = Course
     template_name = "website/courses.html"
     context_object_name = 'courses'
+    
+    def get_queryset(self):
+        return Course.objects.order_by('-id')
 
 
 class CoursesDetailsView(DetailView):
