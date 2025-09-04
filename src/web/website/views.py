@@ -109,7 +109,10 @@ class PricingView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['pricing_plans'] = PricingPlan.objects.filter(is_active=True).order_by('price')
+        # Order by price but put Sat & Sun Classes last
+        context['pricing_plans'] = PricingPlan.objects.filter(is_active=True).extra(
+            select={'custom_order': "CASE WHEN name = 'Sat & Sun Classes' THEN 1 ELSE 0 END"}
+        ).order_by('custom_order', 'price')
         return context
 
 class ScholarsView(TemplateView):
