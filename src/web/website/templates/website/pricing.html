@@ -1,23 +1,23 @@
 {% extends 'website/base.html' %}
 {% load static %}
 
-{% block meta_title %}Pricing Plans - Learn Quran Online Islamic Academy{% endblock %}
-{% block meta_description %}Choose from our flexible Quran learning pricing plans. Affordable monthly packages starting from $25/month with 6-month and 12-month discounts available. Start your Islamic education journey today.{% endblock %}
-{% block meta_keywords %}quran learning pricing, online quran classes cost, islamic education packages, quran tutor pricing, affordable quran lessons{% endblock %}
+{% block meta_title %}Fee Plans - Learn Quran Online Islamic Academy{% endblock %}
+{% block meta_description %}Choose from our flexible Quran learning fee plans. Affordable monthly packages starting from $25/month with 6-month and 12-month discounts available. Start your Islamic education journey today.{% endblock %}
+{% block meta_keywords %}quran learning fees, online quran classes cost, islamic education packages, quran tutor fees, affordable quran lessons{% endblock %}
 
 {% block og_type %}website{% endblock %}
-{% block og_title %}Pricing Plans - Learn Quran Online Islamic Academy{% endblock %}
-{% block og_description %}Choose from our flexible Quran learning pricing plans. Affordable monthly packages starting from $25/month with 6-month and 12-month discounts available.{% endblock %}
+{% block og_title %}Fee Plans - Learn Quran Online Islamic Academy{% endblock %}
+{% block og_description %}Choose from our flexible Quran learning fee plans. Affordable monthly packages starting from $25/month with 6-month and 12-month discounts available.{% endblock %}
 
-{% block twitter_title %}Pricing Plans - Learn Quran Online Islamic Academy{% endblock %}
-{% block twitter_description %}Choose from our flexible Quran learning pricing plans. Affordable monthly packages starting from $25/month with 6-month and 12-month discounts available.{% endblock %}
+{% block twitter_title %}Fee Plans - Learn Quran Online Islamic Academy{% endblock %}
+{% block twitter_description %}Choose from our flexible Quran learning fee plans. Affordable monthly packages starting from $25/month with 6-month and 12-month discounts available.{% endblock %}
 
 {% block schema_type %}PricingPage{% endblock %}
 
-{% block page_title %}Pricing Plans{% endblock %}
+{% block page_title %}Fee Plans{% endblock %}
 
 {% block title %}
-    Pricing
+    Fee
 {% endblock %}
 
 {% block content %}
@@ -27,8 +27,8 @@
     {
         "@context": "https://schema.org",
         "@type": "PricingPage",
-        "name": "Quran Learning Pricing Plans",
-        "description": "Choose from our flexible Quran learning pricing plans with affordable monthly packages",
+        "name": "Quran Learning Fee Plans",
+        "description": "Choose from our flexible Quran learning fee plans with affordable monthly packages",
         "url": "https://learnquranonlinee.com/pricing/",
         "mainEntity": {
             "@type": "Organization",
@@ -38,7 +38,7 @@
             "pricing": {
                 "@type": "Offer",
                 "name": "Quran Learning Packages",
-                "description": "Flexible pricing plans for Quran learning",
+                "description": "Flexible fee plans for Quran learning",
                 "priceSpecification": [
                     {
                         "@type": "UnitPriceSpecification",
@@ -68,13 +68,13 @@
                         "priceCurrency": "USD",
                         "billingIncrement": "P1M"
                     },
-                    {
-                        "@type": "UnitPriceSpecification",
-                        "name": "Weekend Classes",
-                        "price": "30.00",
-                        "priceCurrency": "USD",
-                        "billingIncrement": "P1M"
-                    }
+                                                    {
+                                    "@type": "UnitPriceSpecification",
+                                    "name": "Sat & Sun Classes",
+                                    "price": "30.00",
+                                    "priceCurrency": "USD",
+                                    "billingIncrement": "P1M"
+                                }
                 ]
             }
         }
@@ -84,10 +84,10 @@
 <!-- Page Title -->
 <section class="page-title" style="background-image: url({% static 'assets/images/background/page-title.jpg' %}); margin-top: 100px;">
     <div class="auto-container">
-        <h1>Pricing Plans</h1>
+        <h1>Fee Plans</h1>
         <ul class="bread-crumb clearfix">
             <li><a href="{% url 'website:home' %}">Home</a></li>
-            <li>Pricing</li>
+            <li>Fee</li>
         </ul>
     </div>
 </section>
@@ -117,16 +117,32 @@
                     {% endif %}
                     
                     <div class="price-block_one-price">
-                        <sub>{{ plan.currency }}</sub>{{ plan.price }} <span>/{{ plan.billing_period|title }}</span>
+                        <div class="price-circle">
+                            <div class="price-content">
+                                <span class="currency">{{ plan.currency }} {{ plan.price }}</span>
+                                <span class="amount" style="font-size: 12px;">Per/{{ plan.billing_period|title }}</span>
+                               
+                            </div>
+                        </div>
                     </div>
-                    <h4 class="price-block_one-heading">{{ plan.classes_per_week }} Classes Per Week</h4>
-                    <div class="price-block_one-students">{{ plan.students_enrolled|add:1000 }}+ Students Enrolled</div>
-                    <ul class="price-block_one-list">
-                        <li>{{ plan.classes_per_month }} Classes per Month</li>
-                        <li>6 Months = {{ plan.currency }}{{ plan.get_six_month_price|floatformat:0 }}</li>
-                        <li>Save {{ plan.six_month_discount }}%</li>
-                        <li>12 Months = {{ plan.currency }}{{ plan.get_twelve_month_price|floatformat:0 }}</li>
-                        <li>Save {{ plan.twelve_month_discount }}%</li>
+                                         <h4 class="price-block_one-heading">
+                         {% if plan.name == 'Sat & Sun Classes' %}
+                             Sat & Sun <br> Classes
+                         {% else %}
+                             {{ plan.classes_per_week }} Classes Per Week
+                         {% endif %}
+                     </h4>
+                     <div class="price-block_one-students">{{ plan.students_enrolled|add:1000 }}+ Students Enrolled</div>
+                     <ul class="price-block_one-list ">
+                         <li class="classes-per-month">{{ plan.classes_per_month }} Classes per Month</li>
+                        <li class="discount-option">
+                            <span class="discount-label">6 Months:</span>
+                            <span class="discount-price">{{ plan.currency }}{{ plan.get_six_month_price|floatformat:0 }}</span>
+                        </li>
+                        <li class="discount-option">
+                            <span class="discount-label">12 Months:</span>
+                            <span class="discount-price">{{ plan.currency }}{{ plan.get_twelve_month_price|floatformat:0 }}</span>
+                        </li>
                     </ul>
                     <!-- Button Box -->
                     <div class="price-block_one-button">
@@ -169,6 +185,121 @@
         100% { transform: scale(1); }
     }
     
+    /* Clean Pricing Display */
+    .price-circle {
+        background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        border-radius: 50%;
+        width: 160px;
+        height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .price-circle::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        border-radius: 50%;
+    }
+    
+    .price-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        z-index: 2;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 8px;
+    }
+    
+    .price-circle .currency {
+        font-size: 16px;
+        color: rgba(255,255,255,0.9);
+        font-weight: 500;
+        margin-bottom: 4px;
+        line-height: 1;
+    }
+    
+    .price-circle .amount {
+        font-size: 32px;
+        font-weight: 700;
+        color: white;
+        line-height: 1;
+        margin-bottom: 4px;
+    }
+    
+    .price-circle .period {
+        font-size: 14px;
+        color: rgba(255,255,255,0.8);
+        font-weight: 400;
+        line-height: 1;
+        margin-top: 0;
+    }
+    
+    /* Classes per Month Styling */
+    .classes-per-month {
+        text-align: center;
+        font-weight: 600;
+        color: #333;
+        font-size: 16px;
+        padding: 10px 0;
+        border-bottom: 2px solid #f0f0f0;
+        margin-bottom: 15px;
+    }
+    
+    /* Discount Options Styling */
+    .discount-option {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .discount-option:last-child {
+        border-bottom: none;
+    }
+    
+    .discount-label {
+        color: #666;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    .discount-price {
+        color: #4CAF50;
+        font-weight: 700;
+        font-size: 16px;
+    }
+    
+    /* Mobile List Styling */
+    @media (max-width: 768px) {
+        .price-block_one-list li::before {
+            content: "•";
+            color: #666;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+        }
+        
+        .price-block_one-list li {
+            position: relative;
+            padding-left: 0;
+        }
+    }
+    
     /* Staggered animation delays for pricing cards */
     .price-block_one:nth-child(1) .price-block_one-inner {
         animation-delay: 0.1s;
@@ -202,6 +333,85 @@
     
     .accordion-button:focus {
         box-shadow: 0 0 0 0.25rem rgba(255, 107, 53, 0.25);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .price-circle {
+            width: 140px;
+            height: 140px;
+        }
+        
+        .price-content {
+            padding: 10px;
+        }
+        
+        .price-circle .amount {
+            font-size: 28px;
+        }
+        
+        .price-circle .currency {
+            font-size: 14px;
+        }
+        
+        .price-circle .period {
+            font-size: 12px;
+        }
+        
+        /* Mobile Content Centering */
+        .price-block_one-list {
+            text-align: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .price-block_one-list li {
+            text-align: center;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .discount-option {
+            flex-direction: column;
+            text-align: center;
+            gap: 5px;
+            align-items: center;
+        }
+        
+        .discount-label,
+        .discount-price {
+            text-align: center;
+            width: 100%;
+            display: block;
+        }
+        
+        .classes-per-month {
+            text-align: center;
+            margin: 0 auto 15px;
+            display: block;
+        }
+        
+        .price-block_one-heading {
+            text-align: center;
+        }
+        
+        .price-block_one-students {
+            text-align: center;
+        }
+        
+        /* Ensure entire pricing block is centered on mobile */
+        .price-block_one-inner {
+            text-align: center;
+        }
+        
+        /* Center the button on mobile */
+        .price-block_one-button {
+            text-align: center;
+        }
     }
 </style>
 {% endblock %}

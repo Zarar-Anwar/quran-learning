@@ -63,7 +63,7 @@ class Command(BaseCommand):
                 'twelve_month_discount': 10,
             },
             {
-                'name': 'Weekend Classes',
+                'name': 'Sat & Sun Classes',
                 'price': Decimal('30.00'),
                 'currency': 'USD',
                 'billing_period': 'monthly',

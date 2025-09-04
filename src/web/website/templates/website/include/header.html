@@ -56,10 +56,10 @@
                                     <li><a href="{% url 'website:home' %}">Home</a></li>
                                     <li><a href="{% url 'website:courses' %}">Courses</a></li>
                                     <li><a href="{% url 'website:services' %}">Services</a></li>
-                                    <li><a href="{% url 'website:pricing' %}">Pricing</a></li>
-                                    <li><a href="{% url 'website:about' %}">About</a></li>
-                                    <li><a href="{% url 'website:contact' %}">Contact</a></li>
+                                    <li><a href="{% url 'website:pricing' %}">Fee</a></li>
                                     <li><a href="{% url 'website:videos' %}">Videos</a></li>
+                                    <li><a href="{% url 'website:contact' %}">Contact</a></li>
+                                    <li><a href="{% url 'website:about' %}">About</a></li>
                                     {% if user.is_authenticated %}
                                     <li class="dropdown user-menu" >
                                         <a href="#" class="text-warning " >{{ user.first_name|default:user.username }}
