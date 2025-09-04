@@ -1,0 +1,207 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block meta_title %}Pricing Plans - Learn Quran Online Islamic Academy{% endblock %}
+{% block meta_description %}Choose from our flexible Quran learning pricing plans. Affordable monthly packages starting from $25/month with 6-month and 12-month discounts available. Start your Islamic education journey today.{% endblock %}
+{% block meta_keywords %}quran learning pricing, online quran classes cost, islamic education packages, quran tutor pricing, affordable quran lessons{% endblock %}
+
+{% block og_type %}website{% endblock %}
+{% block og_title %}Pricing Plans - Learn Quran Online Islamic Academy{% endblock %}
+{% block og_description %}Choose from our flexible Quran learning pricing plans. Affordable monthly packages starting from $25/month with 6-month and 12-month discounts available.{% endblock %}
+
+{% block twitter_title %}Pricing Plans - Learn Quran Online Islamic Academy{% endblock %}
+{% block twitter_description %}Choose from our flexible Quran learning pricing plans. Affordable monthly packages starting from $25/month with 6-month and 12-month discounts available.{% endblock %}
+
+{% block schema_type %}PricingPage{% endblock %}
+
+{% block page_title %}Pricing Plans{% endblock %}
+
+{% block title %}
+    Pricing
+{% endblock %}
+
+{% block content %}
+
+    <!-- Structured Data for Pricing Page -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "PricingPage",
+        "name": "Quran Learning Pricing Plans",
+        "description": "Choose from our flexible Quran learning pricing plans with affordable monthly packages",
+        "url": "https://learnquranonlinee.com/pricing/",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "Learn Quran Online",
+            "description": "Online Islamic academy providing comprehensive Quran education",
+            "url": "https://learnquranonlinee.com",
+            "pricing": {
+                "@type": "Offer",
+                "name": "Quran Learning Packages",
+                "description": "Flexible pricing plans for Quran learning",
+                "priceSpecification": [
+                    {
+                        "@type": "UnitPriceSpecification",
+                        "name": "2 Days Per Week",
+                        "price": "25.00",
+                        "priceCurrency": "USD",
+                        "billingIncrement": "P1M"
+                    },
+                    {
+                        "@type": "UnitPriceSpecification",
+                        "name": "3 Days Per Week",
+                        "price": "35.00",
+                        "priceCurrency": "USD",
+                        "billingIncrement": "P1M"
+                    },
+                    {
+                        "@type": "UnitPriceSpecification",
+                        "name": "4 Days Per Week",
+                        "price": "45.00",
+                        "priceCurrency": "USD",
+                        "billingIncrement": "P1M"
+                    },
+                    {
+                        "@type": "UnitPriceSpecification",
+                        "name": "5 Days Per Week",
+                        "price": "55.00",
+                        "priceCurrency": "USD",
+                        "billingIncrement": "P1M"
+                    },
+                    {
+                        "@type": "UnitPriceSpecification",
+                        "name": "Weekend Classes",
+                        "price": "30.00",
+                        "priceCurrency": "USD",
+                        "billingIncrement": "P1M"
+                    }
+                ]
+            }
+        }
+    }
+    </script>
+
+<!-- Page Title -->
+<section class="page-title" style="background-image: url({% static 'assets/images/background/page-title.jpg' %}); margin-top: 100px;">
+    <div class="auto-container">
+        <h1>Pricing Plans</h1>
+        <ul class="bread-crumb clearfix">
+            <li><a href="{% url 'website:home' %}">Home</a></li>
+            <li>Pricing</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="price-one">
+    <div class="auto-container">
+        <!-- Sec Title -->
+        <div class="sec-title">
+            <div class="sec-title_title">Courses Package</div>
+            <h2 class="sec-title_heading">Join Hundreds Of Students <br> Today</h2>
+            <div class="sec-title_text">Choose from our flexible pricing plans designed to fit your schedule and learning pace. All plans include access to our expert instructors and comprehensive learning materials.</div>
+        </div>
+        
+        <div class="row clearfix">
+                         {% for plan in pricing_plans %}
+             <!-- Price Block -->
+             <div class="price-block_one col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                 <div class="price-block_one-inner wow fadeInLeft animated" 
+                      data-wow-duration="1000ms"
+                      {% if plan.is_popular %}style="border: 2px solid #ff6b35; position: relative;"{% endif %}>
+                    
+                    {% if plan.is_popular %}
+                    <div class="popular-badge" style="position: absolute; top: -10px; right: 20px; background: #ff6b35; color: white; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold;">
+                        Most Popular
+                    </div>
+                    {% endif %}
+                    
+                    <div class="price-block_one-price">
+                        <sub>{{ plan.currency }}</sub>{{ plan.price }} <span>/{{ plan.billing_period|title }}</span>
+                    </div>
+                    <h4 class="price-block_one-heading">{{ plan.classes_per_week }} Classes Per Week</h4>
+                    <div class="price-block_one-students">{{ plan.students_enrolled|add:1000 }}+ Students Enrolled</div>
+                    <ul class="price-block_one-list">
+                        <li>{{ plan.classes_per_month }} Classes per Month</li>
+                        <li>6 Months = {{ plan.currency }}{{ plan.get_six_month_price|floatformat:0 }}</li>
+                        <li>Save {{ plan.six_month_discount }}%</li>
+                        <li>12 Months = {{ plan.currency }}{{ plan.get_twelve_month_price|floatformat:0 }}</li>
+                        <li>Save {{ plan.twelve_month_discount }}%</li>
+                    </ul>
+                    <!-- Button Box -->
+                    <div class="price-block_one-button">
+                        <a href="{% url 'website:courses' %}" class="theme-btn btn-style-one">
+                            <span class="btn-wrap">
+                                <span class="text-one">free trial</span>
+                                <span class="text-two">free trial</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <!-- No pricing plans available -->
+            <div class="col-12 text-center">
+                <div class="alert alert-info">
+                    <h4>No Pricing Plans Available</h4>
+                    <p>Please check back later for our latest pricing options.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+     
+    </div>
+</section>
+
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .popular-badge {
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    /* Staggered animation delays for pricing cards */
+    .price-block_one:nth-child(1) .price-block_one-inner {
+        animation-delay: 0.1s;
+    }
+    .price-block_one:nth-child(2) .price-block_one-inner {
+        animation-delay: 0.2s;
+    }
+    .price-block_one:nth-child(3) .price-block_one-inner {
+        animation-delay: 0.3s;
+    }
+    .price-block_one:nth-child(4) .price-block_one-inner {
+        animation-delay: 0.4s;
+    }
+    .price-block_one:nth-child(5) .price-block_one-inner {
+        animation-delay: 0.5s;
+    }
+    
+    .info-item {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .info-item i {
+        color: #ff6b35;
+    }
+    
+    .accordion-button:not(.collapsed) {
+        background-color: #ff6b35;
+        color: white;
+    }
+    
+    .accordion-button:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 107, 53, 0.25);
+    }
+</style>
+{% endblock %}

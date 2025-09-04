@@ -17,6 +17,7 @@ from src.services.courses.models import Course, Enrollment, Instructor
 from src.core.models import Service, GalleryImage, Testimonial, Application, Video
 from src.core.filters import VideoFilter
 from src.core.forms import ContactMessageForm
+from src.services.courses.models import PricingPlan
 
 
 # Create your views here.
@@ -97,6 +98,15 @@ class VideoListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = self.video_filter
+        return context
+
+
+class PricingView(TemplateView):
+    template_name = "website/pricing.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pricing_plans'] = PricingPlan.objects.filter(is_active=True).order_by('price')
         return context
 
 class ScholarsView(TemplateView):

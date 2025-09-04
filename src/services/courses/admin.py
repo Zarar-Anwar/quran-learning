@@ -8,7 +8,7 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 import xlsxwriter
 import io
-from .models import Course, Instructor, CurriculumSection, Lesson, Enrollment
+from .models import Course, Instructor, CurriculumSection, Lesson, Enrollment, PricingPlan
 
 
 @admin.register(Instructor)
@@ -132,6 +132,24 @@ class LessonAdmin(admin.ModelAdmin):
     def course(self, obj):
         return obj.section.course.title
     course.short_description = 'Course'
+
+
+class PricingPlanAdmin(admin.ModelAdmin):
+    list_display = ['name', 'price', 'currency', 'billing_period', 'classes_per_week', 'classes_per_month', 'students_enrolled', 'is_popular', 'is_active']
+    list_filter = ['is_active', 'is_popular', 'billing_period', 'currency']
+    list_editable = ['price', 'students_enrolled', 'is_popular', 'is_active']
+    search_fields = ['name']
+    fieldsets = (
+        ('Basic Information', {
+            'fields': ('name', 'price', 'currency', 'billing_period', 'is_active')
+        }),
+        ('Class Details', {
+            'fields': ('classes_per_week', 'classes_per_month', 'students_enrolled')
+        }),
+        ('Pricing Options', {
+            'fields': ('is_popular', 'six_month_price', 'six_month_discount', 'twelve_month_price', 'twelve_month_discount')
+        }),
+    )
 
 
 # Custom Admin Site for Dashboard
@@ -338,3 +356,4 @@ courses_admin_site.register(Instructor, InstructorAdmin)
 courses_admin_site.register(Enrollment, EnrollmentAdmin)
 courses_admin_site.register(CurriculumSection, CurriculumSectionAdmin)
 courses_admin_site.register(Lesson, LessonAdmin)
+courses_admin_site.register(PricingPlan, PricingPlanAdmin)

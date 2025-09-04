@@ -99,3 +99,47 @@ class Lesson(models.Model):
 
     def __str__(self):
         return f"{self.section.title} - {self.title}"
+
+
+class PricingPlan(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    currency = models.CharField(max_length=3, default='USD')
+    billing_period = models.CharField(max_length=20, default='monthly')  # monthly, yearly, etc.
+    classes_per_week = models.PositiveIntegerField()
+    classes_per_month = models.PositiveIntegerField()
+    students_enrolled = models.PositiveIntegerField(default=0)
+    is_popular = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    # Discount information
+    six_month_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    six_month_discount = models.PositiveIntegerField(default=7, help_text="Discount percentage for 6 months")
+    twelve_month_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    twelve_month_discount = models.PositiveIntegerField(default=10, help_text="Discount percentage for 12 months")
+    
+    class Meta:
+        ordering = ['price']
+    
+    def __str__(self):
+        return f"{self.name} - ${self.price}/{self.billing_period}"
+    
+    def get_six_month_price(self):
+        """Calculate 6-month price with discount"""
+        if self.six_month_price:
+            return self.six_month_price
+        from decimal import Decimal
+        total = self.price * Decimal('6')
+        discount = total * (Decimal(self.six_month_discount) / Decimal('100'))
+        return total - discount
+    
+    def get_twelve_month_price(self):
+        """Calculate 12-month price with discount"""
+        if self.twelve_month_price:
+            return self.twelve_month_price
+        from decimal import Decimal
+        total = self.price * Decimal('12')
+        discount = total * (Decimal(self.twelve_month_discount) / Decimal('100'))
+        return total - discount
