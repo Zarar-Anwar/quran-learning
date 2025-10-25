@@ -33,8 +33,14 @@
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
 
                     <div class="logo-box">
-                        <div class="logo"><a href="{% url 'website:home' %}"><img
-                                class="app-logo img-fluid" src="{{ app.get_logo_url }}" alt="{{ app.name }}" title="{{ app.name }}"></a></div>
+                        <div class="logo"><a href="{% url 'website:home' %}" style="text-decoration: none;">
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                                <img src="{% static 'assets/images/icons/mosque.png' %}" alt="Mosque" style="height: 40px; width: auto; filter: brightness(0) saturate(100%) invert(82%) sepia(58%) saturate(450%) hue-rotate(359deg) brightness(103%) contrast(97%);">
+                                <div style="font-size: 24px; font-weight: 700; color: #ffffff; line-height: 1.2; text-align: center;">
+                                    Learn Quran Online
+                                </div>
+                            </div>
+                        </a></div>
                     </div>
 
                     <div class="nav-outer">
@@ -139,8 +145,14 @@
         <div class="close-btn"><span class="icon flaticon-close-1"></span></div>
 
         <nav class="menu-box">
-            <div class="nav-logo"><a href="{% url 'website:home' %}"><img class="app-logo img-fluid" src="{{ app.get_logo_url }}"
-                                                                          alt="{{ app.name }}" title="{{ app.name }}"></a></div>
+            <div class="nav-logo"><a href="{% url 'website:home' %}" style="text-decoration: none;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                    <img src="{% static 'assets/images/icons/mosque.png' %}" alt="Mosque" style="height: 35px; width: auto; filter: brightness(0) saturate(100%) invert(82%) sepia(58%) saturate(450%) hue-rotate(359deg) brightness(103%) contrast(97%);">
+                    <div style="font-size: 20px; font-weight: 700; color: #1a472a; line-height: 1.2; text-align: center;">
+                        Learn Quran Online
+                    </div>
+                </div>
+            </a></div>
             <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
             </div>
         </nav>
