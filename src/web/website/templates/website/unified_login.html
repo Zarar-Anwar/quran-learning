@@ -5,6 +5,11 @@
 
 {% block css %}
 <style>
+    /* Hide user icon on login page */
+    .main-header .user-box {
+        display: none !important;
+    }
+    
     /* Page Title Section */
     .page-title {
         background-image: url('{% static "assets/images/background/page-title.jpg" %}');
@@ -12,6 +17,7 @@
         background-position: center;
         background-repeat: no-repeat;
         padding: 80px 0;
+        margin-top: 100px;
         position: relative;
         text-align: center;
         color: white;

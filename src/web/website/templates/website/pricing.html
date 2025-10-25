@@ -105,7 +105,7 @@
         <div class="row clearfix">
                          {% for plan in pricing_plans %}
              <!-- Price Block -->
-             <div class="price-block_one col-xl-3 col-lg-6 col-md-6 col-sm-12">
+             <div class="price-block_one col-xl-4 col-lg-4 col-md-4 col-sm-12">
                  <div class="price-block_one-inner wow fadeInLeft animated" 
                       data-wow-duration="1000ms">
                     
@@ -122,7 +122,7 @@
                     </div>
                                          <h4 class="price-block_one-heading">
                          {% if plan.name == 'Sat & Sun Classes' %}
-                             Sat & Sun <br> Classes
+                             Sat & Sun Classes
                          {% else %}
                              {{ plan.classes_per_week }} Classes Per Week
                          {% endif %}
